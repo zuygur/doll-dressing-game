@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Doll Dressing Up</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header><h2>Lets start with choosing the skin color</h2></header>
+    <div class="rectangle">
+
+        <div class="doll">
+            <img src="Paper-doll-template-Screenshot.png" width="280">
+        </div>
+
+        <button class="button" id="move_next">✔️</button>
+
+        <div class="text1">Skin Color</div>
+        
+        <div class="skin" id="skin">
+            <button class="skin-btn skin-btn-act" style="background-color: bisque;"></button>
+            <button class="skin-btn" style="background-color: burlywood;"></button>
+            <button class="skin-btn" style="background-color:rgb(90, 65, 35);"></button>
+            <button class="skin-btn" style="background-color: rgb(48, 36, 21);"></button>
+        </div>
+
+        <div class="menu" id="menu" style="display: none;">
+            <div class="category">
+                <button class="categ-btn categ-btn-act" target = "face">Face</button>
+                <button class="categ-btn" target = "hair">Hair</button>
+                <button class="categ-btn" target = "clothes">Clothes</button>
+                <button class="categ-btn" target = "shoes">Shoes</button>
+                <button class="categ-btn" target = "jewelry">Jewelry</button>  
+                <hr color="#66e4f7" size="3px">
+            </div>
+
+            <div class="face opt" id="face" style="display: flex;">
+                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">😊</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">😒</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">😁</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">😀</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">😉</button>
+            </div>
+
+            <div class="hair opt" id="hair" style="display: none;">
+                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">👩🏻</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👩🏻‍🦱</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👱🏻‍♀️</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👩🏻‍🦰</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👧🏻</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👩🏻‍🦳</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👵🏻</button>
+            </div>
+
+            <div class="clothes opt" id="clothes" style="display: none;">
+                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">👗</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👕</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👖</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👚</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🩳</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👘</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👙</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🥼</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🧥</button>
+            </div>
+
+            <div class="shoes opt" id="shoes" style="display: none;">
+                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">👞</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👟</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👠</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🥾</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👡</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🩴</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👢</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🥿</button>
+            </div>
+
+            <div class="jewelry opt" id="jewelry" style="display: none;">
+                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">👝</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🛍️</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">👜</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🧦</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🎒</button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">🧤</button>
+                
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,108 @@
+.rectangle{
+    width: 1000px;
+    height: 600px;
+    border: solid 3px;
+    margin: auto;
+    background-color:rgb(244, 223, 244);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.doll{
+    margin-top: 100px;
+    position: absolute;
+    margin-left: 50px;
+}
+
+.button{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    left: auto;
+    right: 50px;
+    top: 500px
+}
+
+.text1{
+    font-size: 30px;
+    text-align:center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.skin{
+    flex-direction: row;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: 150px;
+    margin-top: 200px;
+}
+
+.skin-btn{
+    width: 60px;
+    height: 40px;
+}
+
+.skin-btn-act{
+    width: 60px;
+    height: 40px;
+}
+
+.menu{
+    width: 400px;
+    height: 300px;
+    border: 3px solid #66e4f7;
+    background-color: rgb(215, 254, 252);
+    margin-left: auto;
+    margin-right: 50px;
+    margin-top: 100px;
+    border-radius: 20px;
+}
+
+.category{
+    flex-direction: row;
+    justify-content: center;
+}
+
+.categ-btn{
+    width: 76.8px;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.categ-btn-act{
+    width: 76.8px;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 4px;
+    cursor: pointer;
+    
+}
+
+.opt{
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.opt-btn-act{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+.opt-btn{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+}
+
