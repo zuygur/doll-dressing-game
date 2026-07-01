@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Doll Dressing Up</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="text1"><h2>Doll Dressing</h2></header>
+    <div class="rectangle">
+
+        <div class="doll">
+            <img src="" id="layer-hair-back" class="doll-layer" width="220">
+            <img src="doll.png" id="base-doll" width="220">
+            <img src="" id="layer-face" class="doll-layer" width="220">
+            <img src="" id="layer-hair-front" class="doll-layer" width="220">
+            <img src="" id="layer-upper" class="doll-layer" width="220">
+            <img src="" id="layer-lower" class="doll-layer" width="220">
+            <img src="" id="layer-shoes" class="doll-layer" width="220">
+            <img src="" id="layer-accessory" class="doll-layer" width="220">
+            
+        </div>
+
+        <button class="button" id="move_next">✔️</button>
+        
+        <div class="skin" id="skin">
+            <button class="skin-btn skin-btn-act" data-img="doll.png" style="background-color: bisque;"></button>
+            <button class="skin-btn" data-img="doll-burrywood.png" style="background-color: burlywood;"></button>
+            <button class="skin-btn" data-img="doll-rgb(158,123,80).png" style="background-color:rgb(158,123,80);"></button>
+            <button class="skin-btn" data-img="doll-rgb(73,50,20).png" style="background-color:rgb(73,50,20);"></button>
+        </div>
+
+        <div class="menu" id="menu" style="display: none;">
+            <div class="category">
+                <button class="categ-btn categ-btn-act" target = "face">Face</button>
+                <button class="categ-btn" target = "hair">Hair</button>
+                <button class="categ-btn" target = "clothes">Clothes</button>
+                <button class="categ-btn" target = "shoes">Shoes</button>
+                <button class="categ-btn" target = "accessory">Accessory</button>  
+                <hr color="#66e4f7" size="3px">
+            </div>
+
+            <div class="face opt" id="face" style="display: flex;">
+                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/face1.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/face2.png" style="height: 60px; width: 60px;">
+                </button>
+            </div>
+
+            <div class="hair opt" id="hair" style="display: none;">
+                <button class="opt-btn opt-btn-act" data-front="hair/sarifront.png" data-back="hair/sariback.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/sari.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" data-front="hair/black.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/black.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" data-front="hair/orgu.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/orgu.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" data-front="hair/red.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/red.png" style="height: 60px; width: 60px;">
+                </button>
+            </div>
+
+            <div class="clothes opt" id="clothes" style="display: none;">
+                <div class="left-side">
+
+                    <div class="bolum upper">
+
+                        <button class="opt-btn" data-position="under" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/tshirt.png" style="height: 60px; width: 60px;">
+                        </button>
+
+                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/kapşonlu.png" style="height: 60px; width: 60px;">
+                        </button>
+
+                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/kazak.png" style="height: 60px; width: 60px;">
+                        </button>
+                    
+                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/red-sweat.png" style="height: 60px; width: 60px;">
+                        </button>
+                    </div>
+
+                    <hr style="background-color: black; border-radius: 10px;">
+
+                    <div class="bolum lower">
+
+                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/mavi-etek.png" style="height: 60px; width: 60px;">
+                        </button>
+                    
+                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/pantolon.png" style="height: 60px; width: 60px;">
+                        </button>
+
+                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/yeşil-etek.png" style="height: 60px; width: 60px;">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="right-side">
+
+                    <div class="bolum dress">
+
+                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/tulum-elbise.png" style="height: 60px; width: 60px;">
+                        </button>
+                    
+                        <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);" >
+                            <img src="clothes/elbise.png" style="height: 60px; width: 60px;">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shoes opt" id="shoes" style="display: none;">
+                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/shoe1.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/shoe2.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/shoe3.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/shoe4.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/shoe5.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/shoe6.png" style="height: 60px; width: 60px;">
+                </button>
+            </div>
+
+            <div class="accessory opt" id="accessory" style="display: none;">
+                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">
+                    <img src="accesor/bag1.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="accesor/bag2.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="accesor/bag3.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="accesor/headband.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="accesor/headphones.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="accesor/toka1.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="accesor/toka2.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
+                    <img src="accesor/glasses.png" style="height: 60px; width: 60px;">
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
