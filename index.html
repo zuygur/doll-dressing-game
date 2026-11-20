@@ -10,58 +10,171 @@
     <header class="text1"><h2>Doll Dressing</h2></header>
     <div class="rectangle">
 
+        <!-- GİRİŞ EKRANI (START SCREEN) -->
+        <div id="start-screen" class="start-screen">
+            <!-- Ana Giriş Görünümü: Hoş Geldiniz, Start, Continue -->
+            <div id="start-main-view" class="start-card">
+                <h1 class="start-title">✨ Hoş Geldiniz ✨</h1>
+                <p class="start-subtitle">Doll Dressing Game</p>
+                <div class="start-btn-group">
+                    <button id="btn-start-game" class="start-action-btn start-btn-primary">Start (New Doll)</button>
+                    <button id="btn-continue-game" class="start-action-btn start-btn-secondary">Continue</button>
+                </div>
+            </div>
+
+            <!-- Yeni Bebek Paneli: Kız / Erkek Seçimi ve İsim Verme -->
+            <div id="start-new-doll-panel" class="start-card" style="display: none;">
+                <h2 class="start-panel-title">Yeni Bebek Oluştur</h2>
+
+                <div class="gender-selection">
+                    <button type="button" class="gender-btn gender-btn-act" id="gender-girl" data-gender="girl">
+                        👩 Girl (Kız)
+                    </button>
+                    <button type="button" class="gender-btn" id="gender-boy" data-gender="boy">
+                        👦 Boy (Erkek)
+                    </button>
+                </div>
+
+                <div class="name-input-group">
+                    <label for="doll-name-input">Bebeğinize Bir İsim Verin:</label>
+                    <input type="text" id="doll-name-input" placeholder="Bebeğinizin ismi..." maxlength="20" autocomplete="off">
+                    <span id="name-error-msg" class="name-error-text" style="display: none;">Lütfen bebeğinize bir isim verin</span>
+                </div>
+
+                <div class="panel-btn-group">
+                    <button id="btn-cancel-new-doll" class="start-action-btn start-btn-secondary">Geri</button>
+                    <button id="btn-confirm-new-doll" class="start-action-btn start-btn-primary">İlerle (Ten Rengi) ✔️</button>
+                </div>
+            </div>
+
+            <!-- Continue Paneli: Kaydedilmiş Bebeklerin Listesi -->
+            <div id="start-continue-panel" class="start-card" style="display: none;">
+                <h2 class="start-panel-title">Kayıtlı Bebekler</h2>
+                <div id="saved-dolls-list" class="saved-dolls-list">
+                    <!-- JavaScript ile dinamik listelenecek -->
+                </div>
+                <div class="panel-btn-group">
+                    <button id="btn-back-from-continue" class="start-action-btn start-btn-secondary">Geri</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- OYUN ÜST BARI (BEBEK İSMİ, KAYDET, GİRİŞ EKRANI) -->
+        <div class="game-top-bar" id="game-top-bar">
+            <div class="current-doll-badge" id="current-doll-badge">
+                🎀 <span id="current-doll-name-display">Bebeğim</span>
+            </div>
+            <div class="top-bar-actions">
+                <button id="btn-save-doll" class="top-action-btn" title="Bebeğin güncel halini kaydet">💾 Kaydet</button>
+                <button id="btn-home-screen" class="top-action-btn" title="Giriş ekranına dön">🏠 Giriş Ekranı</button>
+            </div>
+        </div>
+        <div id="save-toast" class="save-toast" style="display: none;">Kaydedildi! ✔️</div>
+
         <div class="doll">
-            <img src="" id="layer-hair-back" class="doll-layer" width="220">
-            <img src="doll.png" id="base-doll" width="220">
+            <div class="recolor-layer" id="wrap-hair-back">
+                <img src="" id="layer-hair-back" class="doll-layer" width="220">
+            </div>
+            <div class="recolor-layer" id="wrap-base-doll">
+                <img src="doll.png" id="base-doll" width="220">
+            </div>
             <img src="" id="layer-face" class="doll-layer" width="220">
-            <img src="" id="layer-hair-front" class="doll-layer" width="220">
+            <div class="recolor-layer" id="wrap-hair-front">
+                <img src="" id="layer-hair-front" class="doll-layer" width="220">
+            </div>
             <img src="" id="layer-upper" class="doll-layer" width="220">
             <img src="" id="layer-lower" class="doll-layer" width="220">
             <img src="" id="layer-shoes" class="doll-layer" width="220">
             <img src="" id="layer-accessory" class="doll-layer" width="220">
-            
-        </div>
-
-        <button class="button" id="move_next">✔️</button>
-        
-        <div class="skin" id="skin">
-            <button class="skin-btn skin-btn-act" data-img="doll.png" style="background-color: bisque;"></button>
-            <button class="skin-btn" data-img="doll-burrywood.png" style="background-color: burlywood;"></button>
-            <button class="skin-btn" data-img="doll-rgb(158,123,80).png" style="background-color:rgb(158,123,80);"></button>
-            <button class="skin-btn" data-img="doll-rgb(73,50,20).png" style="background-color:rgb(73,50,20);"></button>
         </div>
 
         <div class="menu" id="menu" style="display: none;">
             <div class="category">
-                <button class="categ-btn categ-btn-act" target = "face">Face</button>
-                <button class="categ-btn" target = "hair">Hair</button>
-                <button class="categ-btn" target = "clothes">Clothes</button>
-                <button class="categ-btn" target = "shoes">Shoes</button>
-                <button class="categ-btn" target = "accessory">Accessory</button>  
+                <button class="categ-btn categ-btn-act" target="skin">Skin</button>
+                <button class="categ-btn" target="hair">Hair</button>
+                <button class="categ-btn" target="haircolor">Hair Col.</button>
+                <button class="categ-btn" target="face">Face</button>
+                <button class="categ-btn" target="clothes">Clothes</button>
+                <button class="categ-btn" target="shoes">Shoes</button>
+                <button class="categ-btn" target="accessory">Acc.</button>
                 <hr color="#66e4f7" size="3px">
             </div>
 
-            <div class="face opt" id="face" style="display: flex;">
-                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">
-                    <img src="face/face1.png" style="height: 60px; width: 60px;">
+            <div class="skin opt" id="skin" style="display: flex;">
+                <div class="picker-container" id="skin-picker"></div>
+            </div>
+
+            <div class="haircolor opt" id="haircolor" style="display: none;">
+                <div class="picker-container" id="hair-picker"></div>
+            </div>
+
+            <div class="face opt" id="face" style="display: none;">
+                <button class="opt-btn opt-btn-act" data-item="face/yüz1.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/yüz1-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                    <img src="face/face2.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-item="face/yüz2.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/yüz2-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" data-item="face/yüz3.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/yüz3-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" data-item="face/yüz4.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/yüz4-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" data-item="face/yüz5.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/yüz5-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+
+                <!-- ERKEK YÜZLER -->
+                <button class="opt-btn boy-item" data-item="face/boyyüz1.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/boyyüz1-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-item="face/boyyüz2.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/boyyüz2-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-item="face/boyyüz3.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/boyyüz3-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-item="face/boyyüz4.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/boyyüz4-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-item="face/boyyüz5.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="face/boyyüz5-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
             </div>
 
             <div class="hair opt" id="hair" style="display: none;">
-                <button class="opt-btn opt-btn-act" data-front="hair/sarifront.png" data-back="hair/sariback.png" style="background-color: rgb(215, 254, 252);">
-                    <img src="hair/sari.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-front="hair/önsaç1.png" data-back="hair/arkasaç1.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/tümsaç1.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" data-front="hair/black.png" style="background-color: rgb(215, 254, 252);">
-                    <img src="hair/black.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-front="hair/önsaç2.png" data-back="hair/arkasaç2.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/tümsaç2.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" data-front="hair/orgu.png" style="background-color: rgb(215, 254, 252);">
-                    <img src="hair/orgu.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-front="hair/önsaç3.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/tümsaç3.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" data-front="hair/red.png" style="background-color: rgb(215, 254, 252);">
-                    <img src="hair/red.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-front="hair/önsaç4.png" data-back="hair/arkasaç4.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/tümsaç4.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn" data-front="hair/önsaç5.png" data-back="hair/arkasaç5.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/tümsaç5.png" style="height: 60px; width: 60px;">
+                </button>
+
+                <!-- ERKEK SAÇ -->
+                <button class="opt-btn boy-item" data-front="hair/boysaç1.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/boysaç1-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-front="hair/boysaç2.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/boysaç2-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-front="hair/boysaç3.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/boysaç3-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-front="hair/boysaç4.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/boysaç4-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-front="hair/boysaç5.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="hair/boysaç5-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
             </div>
 
@@ -69,75 +182,121 @@
                 <div class="left-side">
 
                     <div class="bolum upper">
-
-                        <button class="opt-btn" data-position="under" style="background-color: rgb(215, 254, 252);">
-                            <img src="clothes/tshirt.png" style="height: 60px; width: 60px;">
+                        <!-- KIZ ÜST GİYİM -->
+                        <button class="opt-btn" data-item="clothes/gömlek1.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/gömlek1-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn" data-item="clothes/gömlek2.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/gömlek2-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn" data-item="clothes/sweat1.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/sweat1-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn" data-item="clothes/sweat2.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/sweat2-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn" data-position="under" data-item="clothes/tişört1.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/tişört1-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn" data-position="under" data-item="clothes/tişört2.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/tişört2-removebg-preview.png" style="height: 60px; width: 60px;">
                         </button>
 
-                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                            <img src="clothes/kapşonlu.png" style="height: 60px; width: 60px;">
+                        <!-- ERKEK ÜST GİYİM -->
+                        <button class="opt-btn boy-item" data-item="clothes/boygömlek1.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boygömlek1-removebg-preview.png" style="height: 60px; width: 60px;">
                         </button>
-
-                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                            <img src="clothes/kazak.png" style="height: 60px; width: 60px;">
+                        <button class="opt-btn boy-item" data-item="clothes/boygömlek2.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boygömlek2-removebg-preview.png" style="height: 60px; width: 60px;">
                         </button>
-                    
-                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                            <img src="clothes/red-sweat.png" style="height: 60px; width: 60px;">
+                        <button class="opt-btn boy-item" data-item="clothes/boysweat.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boysweat-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn boy-item" data-position="under" data-item="clothes/boytişört1.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boytişört1-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn boy-item" data-position="under" data-item="clothes/boytişört2.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boytişört2-removebg-preview.png" style="height: 60px; width: 60px;">
                         </button>
                     </div>
 
                     <hr style="background-color: black; border-radius: 10px;">
 
                     <div class="bolum lower">
-
-                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                            <img src="clothes/mavi-etek.png" style="height: 60px; width: 60px;">
+                        <!-- KIZ ALT GİYİM -->
+                        <button class="opt-btn" data-item="clothes/pantolon.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/pantolon-removebg-preview.png" style="height: 60px; width: 60px;">
                         </button>
-                    
-                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                            <img src="clothes/pantolon.png" style="height: 60px; width: 60px;">
+                        <button class="opt-btn" data-item="clothes/eşofman.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/eşofman-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn" data-item="clothes/etek1.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/etek1-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn" data-item="clothes/etek2.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/etek2-removebg-preview.png" style="height: 60px; width: 60px;">
                         </button>
 
-                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                            <img src="clothes/yeşil-etek.png" style="height: 60px; width: 60px;">
+                        <!-- ERKEK ALT GİYİM -->
+                        <button class="opt-btn boy-item" data-item="clothes/boypantolon1.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boypantolon1-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn boy-item" data-item="clothes/boypantolon2.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boypantolon2-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn boy-item" data-item="clothes/boyeşofman.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boyeşofman-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn boy-item" data-item="clothes/boyşort1.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boyşort1-removebg-preview.png" style="height: 60px; width: 60px;">
+                        </button>
+                        <button class="opt-btn boy-item" data-item="clothes/boyşort2.png" style="background-color: rgb(215, 254, 252);">
+                            <img src="clothes/boyşort2-removebg-preview.png" style="height: 60px; width: 60px;">
                         </button>
                     </div>
                 </div>
 
                 <div class="right-side">
-
-                    <div class="bolum dress">
-
-                        <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                            <img src="clothes/tulum-elbise.png" style="height: 60px; width: 60px;">
-                        </button>
-                    
-                        <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);" >
-                            <img src="clothes/elbise.png" style="height: 60px; width: 60px;">
-                        </button>
-                    </div>
+                    <div class="bolum dress"></div>
                 </div>
             </div>
 
             <div class="shoes opt" id="shoes" style="display: none;">
-                <button class="opt-btn opt-btn-act" style="background-color: rgb(215, 254, 252);">
-                    <img src="shoes/shoe1.png" style="height: 60px; width: 60px;">
+                <!-- KIZ AYAKKABI -->
+                <button class="opt-btn" data-item="shoes/ayakkabı1.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/ayakkabı1-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                    <img src="shoes/shoe2.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-item="shoes/ayakkabı2.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/ayakkabı2-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                    <img src="shoes/shoe3.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-item="shoes/ayakkabı3.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/ayakkabı3-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                    <img src="shoes/shoe4.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-item="shoes/ayakkabı4.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/ayakkabı4-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                    <img src="shoes/shoe5.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-item="shoes/ayakkabı5.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/ayakkabı5-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
-                <button class="opt-btn" style="background-color: rgb(215, 254, 252);">
-                    <img src="shoes/shoe6.png" style="height: 60px; width: 60px;">
+                <button class="opt-btn" data-item="shoes/ayakkabı6.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="clothes/ayakkabı6-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+
+                <!-- ERKEK AYAKKABI -->
+                <button class="opt-btn boy-item" data-item="shoes/boyayakkabı1.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/boyayakkabı1-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-item="shoes/boyayakkabı2.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/boyayakkabı2-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-item="shoes/boyayakkabı3.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/boyayakkabı3-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-item="shoes/boyayakkabı4.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/boyayakkabı4-removebg-preview.png" style="height: 60px; width: 60px;">
+                </button>
+                <button class="opt-btn boy-item" data-item="shoes/boyayakkabı5.png" style="background-color: rgb(215, 254, 252);">
+                    <img src="shoes/boyayakkabı5-removebg-preview.png" style="height: 60px; width: 60px;">
                 </button>
             </div>
 
@@ -170,6 +329,7 @@
 
         </div>
     </div>
+    <script src="assets.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

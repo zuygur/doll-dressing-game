@@ -23,16 +23,6 @@
     pointer-events: none; /* Üzerine tıklanmasını engeller, butonları engellemez */
 }
 
-.button{
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    border-radius: 50px;
-    left: auto;
-    right: 50px;
-    top: 500px
-}
-
 .text1{
     font-size: 30px;
     text-align:center;
@@ -40,36 +30,93 @@
     margin-top: 10px;
 }
 
-.skin{
-    flex-direction: row;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: 150px;
-    margin-top: 200px;
+/* ============================================================
+   RECOLOR LAYERS (Ten ve Saç renklerinin per-pixel uygulanması)
+   ============================================================ */
+.recolor-layer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    isolation: isolate; /* blend sadece bu katmanın içinde çalışsın */
+    pointer-events: none;
 }
 
-.skin-btn{
-    width: 60px;
-    height: 40px;
+.recolor-layer > img{
+    position: static;
+    display: block;
+    width: 220px;
+    height: auto;
 }
 
-.skin-btn-act{
-    width: 60px;
-    height: 40px;
+/* Renkli katmanlar: inline SVG duotone filtresi (file:// uyumlu).
+   Görselin kendi alfa kanalı maske görevi görür; shading ve outline korunur. */
+.recolor-layer.tinted-skin > img{
+    filter: url("#doll-duotone-skin");
+}
+
+/* Saç: aynı anda tek renk (tek filtre, üst üste katman yok) */
+.recolor-layer.tinted-hair > img{
+    filter: url("#doll-duotone-hair");
 }
 
 .menu{
-    width: 400px;
-    height: 300px;
+    /* %25 daha geniş panel; pembe alanın yüksekliğine göre esneyen,
+       sağ alta yakın konumlu sabit çerçeve. */
+    width: 50%;
+    position: absolute;
+    top: 8px;
+    right: 50px;
+    bottom: 62px;
+    height: auto;
     border: 3px solid #66e4f7;
     background-color: rgb(215, 254, 252);
-    margin-left: auto;
-    margin-right: 50px;
-    margin-top: 100px;
     border-radius: 20px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+/* Kategori butonları üstte sabit kalır; içerik alanı kalan yüksekliği
+   kullanır ve gerektiğinde kendi içinde kaydırılır. */
+.menu > .opt{
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain; /* tekerlek sayfayı kaydırmasın */
+    scrollbar-width: thin;
+    scrollbar-color: #66e4f7 transparent;
+}
+
+/* Sade, temaya uyumlu dikey kaydırma çubuğu */
+.menu > .opt::-webkit-scrollbar,
+.cp-slots::-webkit-scrollbar,
+.clothes::-webkit-scrollbar,
+.upper::-webkit-scrollbar,
+.lower::-webkit-scrollbar,
+.dress::-webkit-scrollbar{
+    width: 8px;
+}
+
+.menu > .opt::-webkit-scrollbar-track,
+.cp-slots::-webkit-scrollbar-track,
+.clothes::-webkit-scrollbar-track,
+.upper::-webkit-scrollbar-track,
+.lower::-webkit-scrollbar-track,
+.dress::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+.menu > .opt::-webkit-scrollbar-thumb,
+.cp-slots::-webkit-scrollbar-thumb,
+.clothes::-webkit-scrollbar-thumb,
+.upper::-webkit-scrollbar-thumb,
+.lower::-webkit-scrollbar-thumb,
+.dress::-webkit-scrollbar-thumb{
+    background-color: #66e4f7;
+    border-radius: 8px;
+    border: 2px solid rgb(215, 254, 252);
 }
 
 .clothes{
@@ -135,25 +182,62 @@
 }
 
 .category{
-    flex-direction: row;
-    justify-content: center;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px 6px;
+    position: relative;
+}
+
+/* Kategori ayırıcı çizgisi: akışa girmesin, tam genişlikte altta dursun. */
+.category hr{
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    height: 3px;
+    margin: 0;
+    border: 0;
+    border-radius: 2px;
+    background-color: #66e4f7;
 }
 
 .categ-btn{
-    width: 76.8px;
-    height: 50px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: 46px;
     border-radius: 10px;
     margin-top: 4px;
+    padding: 0 4px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
 }
 
 .categ-btn-act{
-    width: 76.8px;
-    height: 50px;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: 46px;
     border-radius: 10px;
     margin-top: 4px;
+    padding: 0 4px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
-    
+    border-color: #ff69b4;
+    background-color: #ffe6f2;
+    color: #d11270;
 }
 
 .opt{
@@ -178,15 +262,12 @@
     cursor: pointer;
 }
 
-#layer-hair-back{
+#wrap-hair-back{
     z-index: 1;
 }
 
-#base-doll{
+#wrap-base-doll{
     z-index: 2;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 #layer-face{
@@ -202,9 +283,586 @@
 #layer-upper{
     z-index: 6;
 }
-#layer-hair-front{
+#wrap-hair-front{
     z-index: 7;
 }
 #layer-accessory{
     z-index: 8;
+}
+
+/* ============================================================
+   START SCREEN STYLES (Giriş Ekranı)
+   ============================================================ */
+.start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1000px;
+    height: 600px;
+    background-color: rgb(244, 223, 244);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-card {
+    background-color: rgb(215, 254, 252);
+    border: 3px solid #66e4f7;
+    border-radius: 20px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 480px;
+    width: 90%;
+}
+
+.start-title {
+    font-size: 26px;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.start-subtitle {
+    font-size: 15px;
+    color: #666;
+    margin: 0 0 25px 0;
+}
+
+.start-btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.start-action-btn {
+    width: 220px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    border: none;
+}
+
+.start-action-btn:hover {
+    transform: scale(1.04);
+}
+
+.start-btn-primary {
+    background-color: #66e4f7;
+    color: #222;
+    border: 2px solid #38b6cc;
+}
+
+.start-btn-secondary {
+    background-color: #fff;
+    color: #555;
+    border: 2px solid #ccc;
+}
+
+.start-panel-title {
+    font-size: 22px;
+    color: #333;
+    margin: 0 0 20px 0;
+}
+
+.gender-selection {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.gender-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    transition: all 0.15s ease;
+}
+
+.gender-btn-act {
+    border-color: #ff69b4;
+    background-color: #ffe6f2;
+    color: #d11270;
+}
+
+.gender-btn-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+}
+
+.name-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.name-input-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+}
+
+.name-input-group input {
+    padding: 10px 14px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 2px solid #66e4f7;
+    outline: none;
+    font-family: inherit;
+}
+
+.name-input-group input:focus {
+    border-color: #ff69b4;
+}
+
+.name-error-text {
+    color: #e53935;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: -2px;
+}
+
+.panel-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.saved-dolls-list {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.saved-doll-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #fff;
+    border: 1px solid #c0e0e4;
+    border-radius: 8px;
+}
+
+.saved-doll-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.saved-doll-load-btn {
+    padding: 6px 14px;
+    background-color: #66e4f7;
+    border: 1px solid #38b6cc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: background-color 0.15s ease;
+}
+
+.saved-doll-load-btn:hover {
+    background-color: #4cd4e9;
+}
+
+.saved-doll-delete-btn {
+    padding: 6px 12px;
+    background-color: #ffebee;
+    border: 1px solid #ef5350;
+    color: #c62828;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: background-color 0.15s ease;
+}
+
+.saved-doll-delete-btn:hover {
+    background-color: #ffcdd2;
+}
+
+/* ============================================================
+   GAME TOP BAR & TOAST NOTIFICATION
+   ============================================================ */
+/* Tüm pembe alanı kaplayan, tıklamaları engellemeyen katman.
+   İçindeki rozet sol üstte, Kaydet/Giriş Ekranı sağ altta konumlanır. */
+.game-top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.current-doll-badge {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    pointer-events: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #66e4f7;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.top-bar-actions {
+    position: absolute;
+    right: 20px;
+    bottom: 16px;
+    pointer-events: auto;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.top-action-btn {
+    background-color: #fff;
+    border: 2px solid #66e4f7;
+    border-radius: 12px;
+    padding: 7px 15px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.top-action-btn:hover {
+    transform: scale(1.05);
+    background-color: #e6faff;
+}
+
+.save-toast {
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    background-color: #2e7d32;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 50;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+/* ============================================================
+   COLOR PICKER (Paint benzeri renk çarkı + parlaklık + HEX)
+   ============================================================ */
+.picker-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+}
+
+.color-picker{
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+}
+
+.cp-wheel{
+    position: relative;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    cursor: crosshair;
+    flex: 0 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    touch-action: none;
+}
+
+.cp-wheel-color{
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.9) 12%, rgba(255, 255, 255, 0) 70%),
+        conic-gradient(from 90deg,
+            #ff0000 0deg,
+            #ffff00 60deg,
+            #00ff00 120deg,
+            #00ffff 180deg,
+            #0000ff 240deg,
+            #ff00ff 300deg,
+            #ff0000 360deg);
+}
+
+.cp-wheel-dark{
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cp-wheel-marker{
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.55);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.cp-controls{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 128px;
+}
+
+.cp-preview-row{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cp-preview{
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #bbb;
+    flex: 0 0 auto;
+    background-color: #fcddc1;
+}
+
+.cp-hex{
+    width: 76px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 2px solid #66e4f7;
+    font-family: monospace;
+    font-size: 13px;
+    outline: none;
+}
+
+.cp-hex:focus{
+    border-color: #ff69b4;
+}
+
+.cp-hex.invalid{
+    border-color: #e53935;
+    background-color: #ffebee;
+}
+
+.cp-slider-label{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #555;
+}
+
+.cp-brightness{
+    width: 100%;
+    accent-color: #ff69b4;
+    cursor: pointer;
+}
+
+.cp-reset{
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.cp-reset:hover{
+    background-color: #f2f2f2;
+}
+
+/* Hazır ten renkleri paleti (Skin sekmesinde çarkın altında) */
+#skin{
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+#skin .picker-container{
+    height: 100%;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+.color-picker.with-palette{
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+}
+
+.cp-top{
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.cp-presets{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+    align-content: flex-start; /* kutular çarkın hemen altından başlar */
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.cp-swatch{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 6px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px #c8c8c8;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.cp-swatch:hover{
+    transform: scale(1.08);
+}
+
+.cp-swatch.selected{
+    border-color: #ff69b4;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #ff69b4;
+}
+
+/* Kutunun sağ üstündeki silme çarpısı */
+.cp-swatch-remove{
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: #b71c1c;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    z-index: 2;
+}
+
+.cp-swatch-remove:hover{
+    background-color: #ffcdd2;
+}
+
+/* Yeni renk ekleme kutusu: kesik kenarlı, içi boş, "+" işaretli */
+.cp-swatch-add{
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px dashed #38b6cc;
+    box-shadow: none;
+    color: #2b9db3;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cp-swatch-add:hover{
+    background-color: #e6faff;
+}
+
+/* ============================================================
+   HAIR COLOR PALETTE (çok renkli saç yuvaları)
+   ============================================================ */
+#haircolor{
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+#haircolor .picker-container{
+    height: 100%;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+.color-picker.with-slots{
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+}
+
+/* Yatay sarar, gerekirse dikey kaydırılır (mouse tekerleği). */
+.cp-slots{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+}
+
+/* ============================================================
+   CİNSİYETE GÖRE MENÜ ÖĞELERİ
+   ============================================================ */
+.menu .boy-item{
+    display: none;
+}
+
+.menu.gender-boy .boy-item{
+    display: inline-block;
+}
+
+.menu.gender-boy .opt-btn:not(.boy-item){
+    display: none;
+}
+
+/* Kırpılmış büyük ürün fotoğrafları kutuya oranı bozulmadan sığsın */
+.opt-btn img[src*="-removebg-preview"]{
+    object-fit: contain;
 }
