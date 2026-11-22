@@ -56,6 +56,15 @@ index.html dosyasına çift tıkla
   - İçerik alanı kendi içinde kaydırılır (sayfa kaymaz)
   - Kaydet ve Giriş Ekranı butonları pembe alanın sağ alt köşesinde
 
+- **AI Fashion Studio — AI Design (yazılı konsept üretimi)**
+  - Yazılı açıklamadan **4 farklı konsept** üretir; her konseptin başlığı, kategorisi, renkleri, kesimi, yakası, kolu, boyu ve süslemeleri ayrı ayrı gösterilir.
+  - Seçili bebeğin kız/erkek bağlamı önerilere yansıtılır; ancak bu bir kısıtlama değildir. Örn. erkek bebekte de elbise istenebilir.
+  - Açıkça istenen renk, kesim, yaka, kol ve boy tüm konseptlerde korunur; serbest kalan özellikler çeşitlendirilir.
+  - Konsept seçme, bireysel konsepti yeniden üretme, yeni set isteme, seçili konsepte ek yönerge verme ve orijinal açıklamayı düzenleme desteklenir.
+  - Açıklama, tüm üretimler, seçim ve ek yönergeler `localStorage`'da saklanır; stüdyo ekranları arasında gezinirken kaybolmaz.
+  - "Devam et" ile seçilen konsept, gelecekteki görsel üretim aşaması için yapılandırılmış veri olarak saklanır. **Bu aşamada görsel üretilmez.**
+  - Üretimler arşive (My Designs) veya bebeğin gardırobuna otomatik eklenmez; mevcut gardırop değiştirilmez.
+
 ## Klasör Yapısı
 
 ```
@@ -124,12 +133,18 @@ doll/
 - **`file://` uyumluluğu:** CSS `mask-image` dosya protokolünde CORS nedeniyle engellendiği için renklendirme SVG filtresiyle yapılır.
 - **Cinsiyet filtresi:** `.menu.gender-boy` sınıfı ile `boy-item` olmayan öğeler gizlenir.
 - **Paletler:** Ten paleti `skinPalette`, saç kutusu renkleri `hairColors` ve aktif indeks `hairActiveIndex` olarak bebek kaydında saklanır.
+- **AI Design motoru:** Dış API çağrılmaz. Yazılı açıklama yerel, kural tabanlı bir analizden geçer (renkler, kategori/ürün türü, stil, kumaş/süsleme, kesim, yaka, kol, boy). Ürün türüne özel varyant profilleri sayesinde "etek" isteği şort olarak veya "bot" isteği sandalet olarak üretilmez.
+- **AI Design kayıt anahtarları:**
+  - `doll_studio_ai_state` — açıklama taslağı, üretim geçmişi, tüm konseptler (yeniden üretilenler dahil), seçim ve ek yönergeler.
+  - `doll_studio_ai_prepared` — "Devam et" ile hazırlanan seçili konseptin yapılandırılmış çıktısı.
+- **Sonraki aşama köprüsü:** `window.DollAIStudio.getPreparedConcept()` seçili konseptin yapılandırılmış verisini, `window.DollAIStudio.getState()` ise tüm AI Design durumunu döndürür. Görsel üretim eklendiğinde bu çıktı doğrudan girdi olarak kullanılabilir.
 
 ## Bilinen Sınırlamalar
 
 - Tasarım sabit **1000x600** oyun alanına göre yapılmıştır; çok küçük ekranlarda sayfa kaydırma gerekebilir.
 - Saç görselleri bölge maskesi içermediği için bir saça aynı anda tek renk uygulanır. İleride bölge maskeli saç görselleri eklenirse `applyHairColor()` fonksiyonu genişletilebilir.
-- Erkek bebek için aksesuar ve bazı kategoriler henüz boş olabilir.
+- Aksesuar kategorisi şu an boş bırakılmıştır; yeni aksesuar görselleri eklendiğinde menüye 100×100 kutular olarak eklenecektir.
+- AI Design konseptleri yerel kural tabanlı motorla üretilir; gerçek bir dil modeli/API entegrasyonu yoktur. Görsel üretimi bilinçli olarak bu aşamaya dahil edilmemiştir.
 
 ## Lisans
 
