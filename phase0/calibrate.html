@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doll Fit Calibration — Phase 0</title>
+<style>
+  :root {
+    --ink: #2b2430;
+    --muted: #6d5e69;
+    --line: #d9c9d4;
+    --panel: #fffafd;
+    --accent: #a54378;
+    --blue: #2178dc;
+    --orange: #e68214;
+    --green: #1e9e50;
+    --purple: #9650c8;
+    --pink: #d2288c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 20px;
+    background: #f6eaf1;
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, sans-serif;
+  }
+  header { max-width: 1180px; margin: 0 auto 14px; }
+  h1 { margin: 0 0 4px; font-size: 23px; color: #8c3d6c; }
+  p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+  .bar {
+    max-width: 1180px;
+    margin: 0 auto 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: end;
+    padding: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 700; color: #7c4a65; }
+  select, input[type="file"] {
+    padding: 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    font: inherit;
+    font-size: 12px;
+  }
+  .checks { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .checks label { flex-direction: row; gap: 5px; font-weight: 600; align-items: center; }
+  .status {
+    max-width: 1180px;
+    margin: 0 auto 14px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .status.error { color: #a5263f; border-color: #e6b2bf; background: #fff4f6; }
+  .panels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .panel {
+    padding: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .panel h2 { margin: 0 0 3px; font-size: 16px; color: #8c3d6c; }
+  .panel .meta { margin: 0 0 8px; font-size: 11px; color: var(--muted); }
+  .viewport { overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  .stage { position: relative; width: 320px; height: 700px; transform-origin: top left; }
+  .stage > img, .stage > svg {
+    position: absolute;
+    inset: 0;
+    width: 320px;
+    height: 700px;
+  }
+  .stage > img { object-fit: contain; }
+  svg { pointer-events: none; }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+  code { background: #f3e6ee; padding: 1px 4px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Doll Fit Calibration — Phase 0</h1>
+  <p>
+    Development-only overlay. It is not linked from the game. Serve the repository over HTTP
+    (for example <code>python -m http.server</code> from the repository root, then open
+    <code>/phase0/calibrate.html</code>). If JSON loading is blocked by <code>file://</code>,
+    load the profile files with the inputs below. Values are drafts and require visual sign-off.
+  </p>
+</header>
+
+<div class="bar">
+  <label>Gender view
+    <span class="muted" style="font-weight:400">Both panels are always shown.</span>
+  </label>
+  <label>Profile slot
+    <select id="slot-select"></select>
+  </label>
+  <label>Subtype
+    <select id="subtype-select"></select>
+  </label>
+  <label>Zoom
+    <select id="zoom-select">
+      <option value="0.5">50%</option>
+      <option value="0.75" selected>75%</option>
+      <option value="1">100%</option>
+    </select>
+  </label>
+  <div class="checks">
+    <label><input type="checkbox" id="opt-grid" checked> Grid</label>
+    <label><input type="checkbox" id="opt-landmarks" checked> Landmarks</label>
+    <label><input type="checkbox" id="opt-labels" checked> Labels</label>
+    <label><input type="checkbox" id="opt-box" checked> Target box</label>
+    <label><input type="checkbox" id="opt-safe" checked> Safe box</label>
+    <label><input type="checkbox" id="opt-all"> All representative boxes</label>
+  </div>
+  <label>Girl profile JSON
+    <input type="file" id="file-girl" accept="application/json,.json">
+  </label>
+  <label>Boy profile JSON
+    <input type="file" id="file-boy" accept="application/json,.json">
+  </label>
+</div>
+
+<div class="status" id="status">Loading profiles…</div>
+
+<div class="panels">
+  <section class="panel">
+    <h2>Girl</h2>
+    <p class="meta" id="meta-girl">profile not loaded</p>
+    <div class="viewport" id="viewport-girl"><div class="stage" id="stage-girl"><img id="img-girl" alt="Girl base doll"><svg id="svg-girl" viewBox="0 0 320 700"></svg></div></div>
+  </section>
+  <section class="panel">
+    <h2>Boy</h2>
+    <p class="meta" id="meta-boy">profile not loaded</p>
+    <div class="viewport" id="viewport-boy"><div class="stage" id="stage-boy"><img id="img-boy" alt="Boy base doll"><svg id="svg-boy" viewBox="0 0 320 700"></svg></div></div>
+  </section>
+</div>
+
+<div class="legend">
+  <span><i class="swatch" style="background:var(--blue)"></i>upper/standard</span>
+  <span><i class="swatch" style="background:var(--orange)"></i>upper/outerwear</span>
+  <span><i class="swatch" style="background:var(--green)"></i>lower/pants</span>
+  <span><i class="swatch" style="background:var(--purple)"></i>lower/skirt</span>
+  <span><i class="swatch" style="background:var(--pink)"></i>fullbody/dress</span>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var NS = "http://www.w3.org/2000/svg";
+  var profiles = { girl: null, boy: null };
+  var slotOrder = ["upper", "lower", "fullbody"];
+  var representative = [
+    ["upper", "standard", "#2178dc"],
+    ["upper", "outerwear", "#e68214"],
+    ["lower", "pants", "#1e9e50"],
+    ["lower", "skirt", "#9650c8"],
+    ["fullbody", "dress", "#d2288c"]
+  ];
+
+  var els = {
+    status: document.getElementById("status"),
+    slot: document.getElementById("slot-select"),
+    subtype: document.getElementById("subtype-select"),
+    zoom: document.getElementById("zoom-select"),
+    grid: document.getElementById("opt-grid"),
+    landmarks: document.getElementById("opt-landmarks"),
+    labels: document.getElementById("opt-labels"),
+    box: document.getElementById("opt-box"),
+    safe: document.getElementById("opt-safe"),
+    all: document.getElementById("opt-all")
+  };
+
+  function setStatus(text, isError) {
+    els.status.textContent = text;
+    els.status.classList.toggle("error", !!isError);
+  }
+
+  function el(name, attrs, text) {
+    var node = document.createElementNS(NS, name);
+    Object.keys(attrs || {}).forEach(function (key) { node.setAttribute(key, attrs[key]); });
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function label(svg, x, y, text, color, show) {
+    if (!show) return;
+    var bg = el("rect", { x: x - 2, y: y - 9, width: Math.max(18, text.length * 5.3), height: 11, rx: 2, fill: "rgba(255,255,255,.78)" });
+    var t = el("text", { x: x, y: y, "font-size": 8.5, fill: color, "font-family": "Segoe UI, sans-serif" }, text);
+    svg.appendChild(bg);
+    svg.appendChild(t);
+  }
+
+  function drawGrid(svg) {
+    for (var x = 0; x <= 320; x += 20) {
+      svg.appendChild(el("line", { x1: x, y1: 0, x2: x, y2: 700, stroke: "rgba(0,0,0,.18)", "stroke-width": x % 100 === 0 ? 0.8 : 0.35 }));
+      if (x % 100 === 0) label(svg, x + 2, 10, String(x), "#555", els.labels.checked);
+    }
+    for (var y = 0; y <= 700; y += 20) {
+      svg.appendChild(el("line", { x1: 0, y1: y, x2: 320, y2: y, stroke: "rgba(0,0,0,.18)", "stroke-width": y % 100 === 0 ? 0.8 : 0.35 }));
+      if (y % 100 === 0) label(svg, 2, y + 9, String(y), "#555", els.labels.checked);
+    }
+  }
+
+  function drawBox(svg, box, color, name, dashed, show) {
+    if (!box || !show) return;
+    svg.appendChild(el("rect", {
+      x: box[0], y: box[1], width: box[2] - box[0], height: box[3] - box[1],
+      fill: "none", stroke: color, "stroke-width": 1.2,
+      "stroke-dasharray": dashed ? "4 3" : "none"
+    }));
+    label(svg, box[0] + 2, box[1] + 10, name, color, els.labels.checked);
+  }
+
+  function drawLandmarks(svg, profile) {
+    if (!els.landmarks.checked) return;
+    Object.keys(profile.landmarks || {}).forEach(function (name) {
+      var p = profile.landmarks[name];
+      svg.appendChild(el("circle", { cx: p[0], cy: p[1], r: 2.4, fill: "#d2143c", stroke: "#fff", "stroke-width": 0.7 }));
+      label(svg, p[0] + 3, p[1] - 3, name, "#a00f2d", els.labels.checked);
+    });
+  }
+
+  function currentSlot() { return els.slot.value || "upper"; }
+  function currentSubtype() { return els.subtype.value || ""; }
+
+  function profileNode(profile, slot, subtype) {
+    return profile && profile.slots && profile.slots[slot] && profile.slots[slot].subtypes
+      ? profile.slots[slot].subtypes[subtype]
+      : null;
+  }
+
+  function renderPanel(gender) {
+    var profile = profiles[gender];
+    var svg = document.getElementById("svg-" + gender);
+    var img = document.getElementById("img-" + gender);
+    var meta = document.getElementById("meta-" + gender);
+    svg.replaceChildren();
+    img.src = gender === "girl" ? "../doll.png" : "../boydoll.png";
+    if (!profile) {
+      meta.textContent = "profile not loaded";
+      return;
+    }
+    meta.textContent = "profile " + profile.profileVersion + " · " + profile.status;
+
+    if (els.grid.checked) drawGrid(svg);
+    if (els.all.checked) {
+      representative.forEach(function (item) {
+        var node = profileNode(profile, item[0], item[1]);
+        if (node) {
+          drawBox(svg, node.targetBox, item[2], item[0] + "/" + item[1], false, els.box.checked);
+          drawBox(svg, node.safeBox, item[2], "", true, els.safe.checked);
+        }
+      });
+    } else {
+      var slot = currentSlot();
+      var subtype = currentSubtype();
+      var node = profileNode(profile, slot, subtype);
+      var color = (representative.find(function (item) { return item[0] === slot && item[1] === subtype; }) || [null, null, "#a54378"])[2];
+      if (node) {
+        drawBox(svg, node.safeBox, color, "", true, els.safe.checked);
+        drawBox(svg, node.targetBox, color, slot + "/" + subtype, false, els.box.checked);
+      }
+    }
+    drawLandmarks(svg, profile);
+  }
+
+  function updateSelectors() {
+    var girl = profiles.girl;
+    var slots = (girl && girl.slots ? Object.keys(girl.slots) : slotOrder).filter(function (slot) {
+      return slotOrder.indexOf(slot) !== -1;
+    });
+    var previousSlot = els.slot.value;
+    els.slot.replaceChildren();
+    slots.forEach(function (slot) {
+      var option = document.createElement("option");
+      option.value = slot;
+      option.textContent = slot;
+      els.slot.appendChild(option);
+    });
+    if (slots.indexOf(previousSlot) !== -1) els.slot.value = previousSlot;
+    else els.slot.value = slots[0] || "upper";
+
+    var slot = currentSlot();
+    var subtypes = girl && girl.slots && girl.slots[slot] ? Object.keys(girl.slots[slot].subtypes) : [];
+    var previousSubtype = els.subtype.value;
+    els.subtype.replaceChildren();
+    subtypes.forEach(function (subtype) {
+      var option = document.createElement("option");
+      option.value = subtype;
+      option.textContent = subtype;
+      els.subtype.appendChild(option);
+    });
+    els.subtype.value = subtypes.indexOf(previousSubtype) !== -1 ? previousSubtype : (subtypes[0] || "");
+  }
+
+  function renderAll() {
+    updateSelectors();
+    renderPanel("girl");
+    renderPanel("boy");
+  }
+
+  function applyZoom() {
+    var zoom = Number(els.zoom.value) || 0.75;
+    ["girl", "boy"].forEach(function (gender) {
+      var stage = document.getElementById("stage-" + gender);
+      var viewport = document.getElementById("viewport-" + gender);
+      stage.style.transform = "scale(" + zoom + ")";
+      viewport.style.width = Math.round(320 * zoom) + "px";
+      viewport.style.height = Math.round(700 * zoom) + "px";
+    });
+  }
+
+  function loadProfileFile(input, gender) {
+    var file = input.files && input.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        profiles[gender] = JSON.parse(String(reader.result));
+        setStatus("Loaded " + gender + " profile from file.", false);
+        renderAll();
+      } catch (err) {
+        setStatus("Could not parse " + gender + " profile JSON: " + err.message, true);
+      }
+    };
+    reader.readAsText(file, "utf-8");
+  }
+
+  async function loadProfile(gender) {
+    var response = await fetch("fit-profiles." + gender + ".json", { cache: "no-store" });
+    if (!response.ok) throw new Error(response.status + " " + response.statusText);
+    return response.json();
+  }
+
+  async function start() {
+    try {
+      var results = await Promise.all([loadProfile("girl"), loadProfile("boy")]);
+      profiles.girl = results[0];
+      profiles.boy = results[1];
+      setStatus("Profiles loaded over HTTP. These are Phase 0 drafts; inspect both dolls before accepting coordinates.", false);
+    } catch (err) {
+      setStatus("Could not fetch profiles (" + err.message + "). Use the file inputs above, or serve the repo over HTTP from its root.", true);
+    }
+    renderAll();
+    applyZoom();
+  }
+
+  ["slot", "subtype", "zoom"].forEach(function (key) {
+    els[key].addEventListener("change", function () {
+      if (key === "slot") {
+        var girl = profiles.girl;
+        var slot = currentSlot();
+        var subtypes = girl && girl.slots && girl.slots[slot] ? Object.keys(girl.slots[slot].subtypes) : [];
+        els.subtype.replaceChildren();
+        subtypes.forEach(function (subtype) {
+          var option = document.createElement("option");
+          option.value = subtype;
+          option.textContent = subtype;
+          els.subtype.appendChild(option);
+        });
+      }
+      if (key === "zoom") applyZoom();
+      renderAll();
+    });
+  });
+  ["grid", "landmarks", "labels", "box", "safe", "all"].forEach(function (key) {
+    els[key].addEventListener("change", renderAll);
+  });
+  document.getElementById("file-girl").addEventListener("change", function () { loadProfileFile(this, "girl"); });
+  document.getElementById("file-boy").addEventListener("change", function () { loadProfileFile(this, "boy"); });
+
+  start();
+})();
+</script>
+</body>
+</html>

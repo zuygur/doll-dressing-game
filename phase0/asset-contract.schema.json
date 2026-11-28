@@ -1,0 +1,391 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://doll-dressing-game.local/schemas/asset-contract.schema.json",
+  "title": "Doll generated-asset contract (Phase 0)",
+  "description": "Phase 0 data contract for one common garment master, per-gender fitted assets, wardrobe previews, thumbnails, fit profiles, generation results, jobs, and design records. It is intentionally forward-compatible with Shoes and Accessories while the MVP only produces Clothes Upper/Lower.",
+  "oneOf": [
+    { "$ref": "#/$defs/garmentMaster" },
+    { "$ref": "#/$defs/fittedAsset" },
+    { "$ref": "#/$defs/wardrobePreview" },
+    { "$ref": "#/$defs/thumbnail" },
+    { "$ref": "#/$defs/fitProfile" },
+    { "$ref": "#/$defs/generationResult" },
+    { "$ref": "#/$defs/generationJob" },
+    { "$ref": "#/$defs/designRecord" }
+  ],
+  "$defs": {
+    "gender": {
+      "type": "string",
+      "enum": ["girl", "boy"]
+    },
+    "slot": {
+      "type": "string",
+      "description": "Existing wardrobe slots. MVP generation supports upper and lower; shoes/accessory are reserved for later phases.",
+      "enum": ["upper", "lower", "shoes", "accessory"]
+    },
+    "category": {
+      "type": "string",
+      "enum": ["clothes", "shoes", "accessories", "hair", "haircolor", "face", "skin"]
+    },
+    "garmentKind": {
+      "type": "string",
+      "description": "Internal garment classification. Full-body kinds set coversLower=true; coats/jackets keep coversLower=false.",
+      "enum": [
+        "top", "shirt", "tshirt", "sweatshirt", "blouse", "sweater",
+        "dress", "gown", "tulum", "jumpsuit",
+        "coat", "jacket", "outerwear",
+        "skirt", "pants", "shorts", "tracksuit",
+        "shoes", "accessory", "other"
+      ]
+    },
+    "point": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "box": {
+      "type": "array",
+      "description": "[x1, y1, x2, y2] in canvas pixels.",
+      "items": { "type": "number" },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "canvas": {
+      "type": "object",
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "integer", "const": 320 },
+        "height": { "type": "integer", "const": 700 }
+      },
+      "additionalProperties": false
+    },
+    "assetRef": {
+      "type": "object",
+      "required": ["url", "width", "height", "transparent"],
+      "properties": {
+        "url": { "type": "string", "format": "uri-reference" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "transparent": { "type": "boolean" },
+        "mimeType": { "type": "string", "default": "image/png" },
+        "checksum": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "dollPlacement": {
+      "type": "object",
+      "description": "Phase-0-compatible copy of the Draw Your Own placement metadata. The drawing canvas is 800x800; the reference doll is centered at 82% height with a 320:700 aspect ratio.",
+      "properties": {
+        "visible": { "type": "boolean" },
+        "heightRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "aspect": { "type": "string" },
+        "canvasWidth": { "type": "integer" },
+        "canvasHeight": { "type": "integer" }
+      },
+      "additionalProperties": true
+    },
+    "sourceRef": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["ai-concept", "draw"] },
+        "conceptId": { "type": "string" },
+        "generationId": { "type": "string" },
+        "designId": { "type": "string" },
+        "prompt": { "type": "string" },
+        "preparedPayloadRef": { "type": "string" },
+        "sketchRef": { "$ref": "#/$defs/assetRef" },
+        "dollPlacement": { "$ref": "#/$defs/dollPlacement" },
+        "refinementInstructions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "fitTransform": {
+      "type": "object",
+      "required": ["fitMode", "profileVersion", "targetBox"],
+      "properties": {
+        "fitMode": { "type": "string", "enum": ["affine", "mesh"] },
+        "profileVersion": { "type": "string" },
+        "sourceBBox": { "$ref": "#/$defs/box" },
+        "targetBox": { "$ref": "#/$defs/box" },
+        "scale": { "type": "number", "exclusiveMinimum": 0 },
+        "offset": { "$ref": "#/$defs/point" },
+        "meshControlPoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source", "target"],
+            "properties": {
+              "source": { "$ref": "#/$defs/point" },
+              "target": { "$ref": "#/$defs/point" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "garmentMaster": {
+      "type": "object",
+      "required": [
+        "masterId", "designId", "source", "url", "width", "height",
+        "transparent", "hasAlpha", "provider", "createdAt", "status"
+      ],
+      "properties": {
+        "masterId": { "type": "string" },
+        "designId": { "type": "string" },
+        "source": { "type": "string", "enum": ["ai-concept", "draw"] },
+        "sourceRef": { "$ref": "#/$defs/sourceRef" },
+        "url": { "type": "string", "format": "uri-reference" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "transparent": { "type": "boolean" },
+        "hasAlpha": { "type": "boolean" },
+        "provider": { "type": "string", "enum": ["openai", "replicate", "stability", "unknown"] },
+        "model": { "type": "string" },
+        "prompt": { "type": "string" },
+        "styleReferences": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "checksum": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": {
+          "type": "string",
+          "enum": ["preview", "accepted", "rejected", "expired", "failed"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "fittedAsset": {
+      "type": "object",
+      "required": [
+        "assetId", "designId", "masterId", "gender", "slot",
+        "garmentKind", "coversLower", "url", "width", "height",
+        "transparent", "fit"
+      ],
+      "properties": {
+        "assetId": { "type": "string" },
+        "designId": { "type": "string" },
+        "masterId": { "type": "string" },
+        "gender": { "$ref": "#/$defs/gender" },
+        "slot": { "$ref": "#/$defs/slot" },
+        "garmentKind": { "$ref": "#/$defs/garmentKind" },
+        "coversLower": { "type": "boolean" },
+        "url": { "type": "string", "format": "uri-reference" },
+        "width": { "type": "integer", "const": 320 },
+        "height": { "type": "integer", "const": 700 },
+        "transparent": { "type": "boolean", "const": true },
+        "fit": { "$ref": "#/$defs/fitTransform" },
+        "checksum": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": {
+          "type": "string",
+          "enum": ["preview", "accepted", "rejected", "expired", "failed"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "wardrobePreview": {
+      "type": "object",
+      "required": ["previewId", "designId", "masterId", "url", "width", "height", "transparent"],
+      "properties": {
+        "previewId": { "type": "string" },
+        "designId": { "type": "string" },
+        "masterId": { "type": "string" },
+        "url": { "type": "string", "format": "uri-reference" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "transparent": { "type": "boolean" },
+        "checksum": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": true
+    },
+    "thumbnail": {
+      "type": "object",
+      "required": ["thumbId", "designId", "masterId", "url", "width", "height", "transparent"],
+      "properties": {
+        "thumbId": { "type": "string" },
+        "designId": { "type": "string" },
+        "masterId": { "type": "string" },
+        "url": { "type": "string", "format": "uri-reference" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "transparent": { "type": "boolean" },
+        "checksum": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": true
+    },
+    "fitProfile": {
+      "type": "object",
+      "required": [
+        "schemaVersion", "kind", "gender", "profileVersion", "status",
+        "canvas", "referenceAsset", "landmarks", "slots"
+      ],
+      "properties": {
+        "schemaVersion": { "type": "integer", "const": 1 },
+        "kind": { "type": "string", "const": "doll-fit-profile" },
+        "gender": { "$ref": "#/$defs/gender" },
+        "profileVersion": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["draft-needs-visual-signoff", "calibrated", "retired"]
+        },
+        "canvas": { "$ref": "#/$defs/canvas" },
+        "referenceAsset": { "type": "string" },
+        "measurementDate": { "type": "string", "format": "date" },
+        "measuredFrom": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" },
+        "landmarks": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/point" }
+        },
+        "slots": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["sourceAnchorStrategy", "subtypes"],
+            "properties": {
+              "sourceAnchorStrategy": { "type": "string" },
+              "defaultSubtype": { "type": "string" },
+              "subtypes": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "required": ["targetBox", "safeBox", "fitMode", "coversLower"],
+                  "properties": {
+                    "targetBox": { "$ref": "#/$defs/box" },
+                    "safeBox": { "$ref": "#/$defs/box" },
+                    "targetAnchors": {
+                      "type": "object",
+                      "additionalProperties": { "$ref": "#/$defs/point" }
+                    },
+                    "fitMode": {
+                      "type": "string",
+                      "enum": ["affine", "affine-first", "affine-first-mesh-likely", "mesh"]
+                    },
+                    "coversLower": { "type": "boolean" },
+                    "notes": { "type": "string" }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "generationResult": {
+      "type": "object",
+      "required": ["jobId", "designId", "status", "master", "preview", "thumbnail", "variants"],
+      "properties": {
+        "jobId": { "type": "string" },
+        "designId": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["queued", "generating", "postprocessing", "ready", "failed", "cancelled"]
+        },
+        "master": { "$ref": "#/$defs/garmentMaster" },
+        "preview": { "$ref": "#/$defs/wardrobePreview" },
+        "thumbnail": { "$ref": "#/$defs/thumbnail" },
+        "variants": {
+          "type": "object",
+          "required": ["girl", "boy"],
+          "properties": {
+            "girl": { "$ref": "#/$defs/fittedAsset" },
+            "boy": { "$ref": "#/$defs/fittedAsset" }
+          },
+          "additionalProperties": false
+        },
+        "garmentKind": { "$ref": "#/$defs/garmentKind" },
+        "slot": { "$ref": "#/$defs/slot" },
+        "coversLower": { "type": "boolean" },
+        "fitProfileVersion": { "type": "string" },
+        "error": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": true
+    },
+    "generationJob": {
+      "type": "object",
+      "required": ["jobId", "status", "provider", "designId", "createdAt", "updatedAt"],
+      "properties": {
+        "jobId": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["queued", "generating", "postprocessing", "ready", "failed", "cancelled"]
+        },
+        "provider": { "type": "string", "enum": ["openai", "replicate", "stability", "unknown"] },
+        "providerJobId": { "type": "string" },
+        "designId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" },
+        "error": { "type": "string" },
+        "result": { "$ref": "#/$defs/generationResult" }
+      },
+      "additionalProperties": true
+    },
+    "designRecord": {
+      "type": "object",
+      "required": [
+        "designId", "source", "slot", "garmentKind", "coversLower",
+        "category", "master", "preview", "thumbnail", "variants",
+        "accepted", "createdAt", "fitProfileVersion"
+      ],
+      "properties": {
+        "designId": { "type": "string" },
+        "source": { "type": "string", "enum": ["ai-concept", "draw"] },
+        "sourceRef": { "$ref": "#/$defs/sourceRef" },
+        "slot": { "$ref": "#/$defs/slot" },
+        "garmentKind": { "$ref": "#/$defs/garmentKind" },
+        "coversLower": { "type": "boolean" },
+        "category": { "$ref": "#/$defs/category" },
+        "master": { "$ref": "#/$defs/garmentMaster" },
+        "preview": { "$ref": "#/$defs/wardrobePreview" },
+        "thumbnail": { "$ref": "#/$defs/thumbnail" },
+        "variants": {
+          "type": "object",
+          "required": ["girl", "boy"],
+          "properties": {
+            "girl": { "$ref": "#/$defs/fittedAsset" },
+            "boy": { "$ref": "#/$defs/fittedAsset" }
+          },
+          "additionalProperties": false
+        },
+        "accepted": { "type": "boolean" },
+        "acceptedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "fitProfileVersion": { "type": "string" },
+        "provider": { "type": "string", "enum": ["openai", "replicate", "stability", "unknown"] },
+        "model": { "type": "string" },
+        "history": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/generationResult" }
+        },
+        "retention": {
+          "type": "object",
+          "properties": {
+            "keepUntil": { "type": "string", "format": "date-time" },
+            "cleanupStatus": { "type": "string" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

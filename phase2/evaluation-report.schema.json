@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://doll-dressing-game.local/schemas/phase2-pilot-evaluation-report.schema.json",
+  "title": "Phase 2 Provider Pilot Evaluation Report",
+  "description": "Structured report for comparable garment-generation pilot cases. Scores are human-review fields; mock runs must leave scores null and mark results as simulated.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "kind",
+    "generatedAt",
+    "run",
+    "scope",
+    "rubric",
+    "cases",
+    "summary",
+    "notes"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "kind": { "type": "string", "const": "phase2-provider-pilot-evaluation-report" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "run": {
+      "type": "object",
+      "required": [
+        "id",
+        "mode",
+        "simulated",
+        "realPilotExecuted",
+        "provider",
+        "providerLabel",
+        "startedAt",
+        "finishedAt",
+        "outputDirectory"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "mode": { "type": "string", "enum": ["mock", "real"] },
+        "simulated": { "type": "boolean" },
+        "realPilotExecuted": { "type": "boolean" },
+        "provider": { "type": "string" },
+        "providerLabel": { "type": "string" },
+        "model": { "type": ["string", "null"] },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "finishedAt": { "type": "string", "format": "date-time" },
+        "outputDirectory": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "mockNotice": { "type": ["string", "null"] },
+    "scope": { "type": ["object", "null"] },
+    "caseSelection": { "type": ["object", "null"] },
+    "rubric": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["label", "description"],
+        "properties": {
+          "label": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "cases": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/caseResult" }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "caseCount",
+        "simulated",
+        "generated",
+        "failed",
+        "realProviderResults",
+        "totalEstimatedCostUsd",
+        "costEstimateStatus"
+      ],
+      "properties": {
+        "caseCount": { "type": "integer", "minimum": 0 },
+        "simulated": { "type": "integer", "minimum": 0 },
+        "generated": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "realProviderResults": { "type": "integer", "minimum": 0 },
+        "totalEstimatedCostUsd": { "type": ["number", "null"], "minimum": 0 },
+        "costEstimateStatus": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "required": ["status", "score", "scale", "notes"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "simulated_not_evaluated",
+            "pending_human_review",
+            "completed",
+            "not_applicable"
+          ]
+        },
+        "score": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 4,
+          "description": "Human review score. Null unless a reviewer has completed the criterion."
+        },
+        "scale": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "evaluation": {
+      "type": "object",
+      "required": [
+        "garmentOnlyCompliance",
+        "transparencyAndEdgeCleanliness",
+        "styleConsistency",
+        "sketchFidelity",
+        "silhouetteAndShape",
+        "fittingSuitability"
+      ],
+      "properties": {
+        "garmentOnlyCompliance": { "$ref": "#/$defs/metric" },
+        "transparencyAndEdgeCleanliness": { "$ref": "#/$defs/metric" },
+        "styleConsistency": { "$ref": "#/$defs/metric" },
+        "sketchFidelity": { "$ref": "#/$defs/metric" },
+        "silhouetteAndShape": { "$ref": "#/$defs/metric" },
+        "fittingSuitability": { "$ref": "#/$defs/metric" }
+      },
+      "additionalProperties": false
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["path", "mimeType", "bytes", "sha256"],
+      "properties": {
+        "path": { "type": "string" },
+        "mimeType": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "caseResult": {
+      "type": "object",
+      "required": [
+        "caseId",
+        "type",
+        "sourceKind",
+        "garment",
+        "simulated",
+        "status",
+        "promptLength",
+        "promptSha256",
+        "latencyMs",
+        "latencyStatus",
+        "estimatedCostUsd",
+        "costEstimateStatus",
+        "artifacts",
+        "automatedChecks",
+        "evaluation",
+        "errors"
+      ],
+      "properties": {
+        "caseId": { "type": "string" },
+        "type": { "type": "string", "enum": ["concept", "sketch"] },
+        "sourceKind": { "type": "string", "enum": ["ai-concept", "draw"] },
+        "phase0CaseId": { "type": ["string", "null"] },
+        "garment": {
+          "type": "object",
+          "required": ["slot", "profileSlot", "subtype", "garmentKind", "coversLower", "category"],
+          "properties": {
+            "slot": { "type": "string", "enum": ["upper", "lower"] },
+            "profileSlot": { "type": "string" },
+            "subtype": { "type": "string" },
+            "garmentKind": { "type": "string" },
+            "coversLower": { "type": "boolean" },
+            "category": { "type": "string" }
+          },
+          "additionalProperties": true
+        },
+        "conceptTitle": { "type": ["string", "null"] },
+        "evaluationFocus": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "simulated": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["simulated", "generated", "failed"] },
+        "provider": { "type": ["string", "null"] },
+        "model": { "type": ["string", "null"] },
+        "providerRequestId": { "type": ["string", "null"] },
+        "promptLength": { "type": "integer", "minimum": 0 },
+        "promptSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "latencyMs": { "type": ["integer", "null"], "minimum": 0 },
+        "latencyStatus": { "type": "string" },
+        "estimatedCostUsd": { "type": ["number", "null"], "minimum": 0 },
+        "costEstimateStatus": { "type": "string" },
+        "artifacts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/artifact" }
+        },
+        "automatedChecks": { "type": "object" },
+        "evaluation": { "$ref": "#/$defs/evaluation" },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["code", "message"],
+            "properties": {
+              "code": { "type": "string" },
+              "message": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "sketchFixture": { "type": ["string", "null"] },
+        "fixtureOrigin": { "type": ["string", "null"] },
+        "dollPlacement": { "type": ["object", "null"] }
+      },
+      "additionalProperties": true
+    }
+  }
+}

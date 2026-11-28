@@ -94,8 +94,7 @@
 .cp-slots::-webkit-scrollbar,
 .clothes::-webkit-scrollbar,
 .upper::-webkit-scrollbar,
-.lower::-webkit-scrollbar,
-.dress::-webkit-scrollbar{
+.lower::-webkit-scrollbar{
     width: 8px;
 }
 
@@ -103,8 +102,7 @@
 .cp-slots::-webkit-scrollbar-track,
 .clothes::-webkit-scrollbar-track,
 .upper::-webkit-scrollbar-track,
-.lower::-webkit-scrollbar-track,
-.dress::-webkit-scrollbar-track{
+.lower::-webkit-scrollbar-track{
     background: transparent;
 }
 
@@ -112,8 +110,7 @@
 .cp-slots::-webkit-scrollbar-thumb,
 .clothes::-webkit-scrollbar-thumb,
 .upper::-webkit-scrollbar-thumb,
-.lower::-webkit-scrollbar-thumb,
-.dress::-webkit-scrollbar-thumb{
+.lower::-webkit-scrollbar-thumb{
     background-color: #66e4f7;
     border-radius: 8px;
     border: 2px solid rgb(215, 254, 252);
@@ -138,11 +135,6 @@
     padding: 12px;
     box-sizing: border-box;
     min-height: 0;
-}
-
-/* Elbise kolonu boş; genişliği kıyafetlere bırakıyoruz. */
-.right-side{
-    display: none;
 }
 
 .bolum{
@@ -183,18 +175,6 @@
     overscroll-behavior: contain;
     scrollbar-width: thin;
     scrollbar-color: #66e4f7 transparent;
-}
-
-.dress{
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scrollbar-width: thin;
-    width: 100px;
-    height: 170px;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 .category{

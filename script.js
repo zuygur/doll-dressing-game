@@ -341,6 +341,19 @@ function getButtonItemSrc(btn) {
     return img ? img.getAttribute("src") : "";
 }
 
+// Elbise/abiye/tulum gibi tam vücut parçaları alt giyimi kapatır.
+// Ceket/mont gibi üst parçalar bu işareti taşımaz; alt giyimle uyumlu kalır.
+function isFullBodyGarmentButton(btn) {
+    if (!btn) return false;
+    const kind = btn.getAttribute("data-garment-kind");
+    return btn.getAttribute("data-covers-lower") === "true"
+        || kind === "dress"
+        || kind === "gown"
+        || kind === "fullbody"
+        || kind === "tulum"
+        || kind === "jumpsuit";
+}
+
 // Seçilen cinsiyete göre menü öğelerini göster/gizle.
 function applyGenderMenu(gender) {
     if (menu) menu.classList.toggle("gender-boy", gender === "boy");
@@ -392,7 +405,6 @@ allOptButtons.forEach(btn => {
         if (this.closest("#face")) layerId = "layer-face";
         else if (this.closest(".upper")) layerId = "layer-upper";
         else if (this.closest(".lower")) layerId = "layer-lower";
-        else if (this.closest(".dress")) layerId = "layer-upper";
         else if (this.closest("#shoes")) layerId = "layer-shoes";
         else if (this.closest("#accessory")) layerId = "layer-accessory";
 
@@ -412,8 +424,9 @@ allOptButtons.forEach(btn => {
             else {
                 layer.setAttribute('src', itemImg);
 
-                // Elbise/Tulum giyilirse pantolonu otomatik çıkar
-                if (this.closest(".dress")) {
+                // Tam vücut giyim (elbise/abiye/tulum) alt giyimi otomatik çıkarır.
+                // Ceket/mont gibi üst parçalar bu işareti taşımadığı için alt giyim kalır.
+                if (this.closest(".upper") && isFullBodyGarmentButton(this)) {
                     layerLower.removeAttribute('src');
                     document.querySelectorAll(".lower .opt-btn").forEach(b => b.classList.remove("opt-btn-act"));
                 }

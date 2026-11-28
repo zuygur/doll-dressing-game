@@ -1,0 +1,698 @@
+{
+  "schemaVersion": 1,
+  "kind": "doll-fit-profile",
+  "gender": "boy",
+  "profileVersion": "0.1.0",
+  "status": "draft-needs-visual-signoff",
+  "canvas": {
+    "width": 320,
+    "height": 700
+  },
+  "referenceAsset": "boydoll.png",
+  "measurementDate": "2026-11-23",
+  "measuredFrom": [
+    "boydoll.png",
+    "clothes/boygömlek1.png",
+    "clothes/boygömlek2.png",
+    "clothes/boysweat.png",
+    "clothes/boytişört1.png",
+    "clothes/boytişört2.png",
+    "clothes/boypantolon1.png",
+    "clothes/boypantolon2.png",
+    "clothes/boyeşofman.png",
+    "clothes/boyşort1.png",
+    "clothes/boyşort2.png"
+  ],
+  "notes": "Derived from the 320x700 alpha silhouettes and the alpha bounding boxes of existing worn Upper/Lower assets. The boy has a higher crotch, broader shoulders, and longer legs than the girl; do not reuse the girl profile. Coordinates are Phase 0 drafts and require visual sign-off.",
+  "landmarks": {
+    "headTop": [
+      157,
+      43
+    ],
+    "headCenter": [
+      157,
+      145
+    ],
+    "neck": [
+      157,
+      264
+    ],
+    "shoulderL": [
+      100,
+      305
+    ],
+    "shoulderR": [
+      218,
+      305
+    ],
+    "chestL": [
+      117,
+      345
+    ],
+    "chestR": [
+      198,
+      345
+    ],
+    "waistL": [
+      117,
+      360
+    ],
+    "waistR": [
+      198,
+      360
+    ],
+    "hipL": [
+      105,
+      425
+    ],
+    "hipR": [
+      212,
+      425
+    ],
+    "crotch": [
+      157,
+      440
+    ],
+    "kneeL": [
+      124,
+      550
+    ],
+    "kneeR": [
+      197,
+      550
+    ],
+    "ankleL": [
+      129,
+      650
+    ],
+    "ankleR": [
+      197,
+      650
+    ],
+    "footL": [
+      129,
+      680
+    ],
+    "footR": [
+      195,
+      680
+    ],
+    "elbowL": [
+      85,
+      390
+    ],
+    "elbowR": [
+      232,
+      390
+    ],
+    "wristL": [
+      70,
+      415
+    ],
+    "wristR": [
+      248,
+      415
+    ]
+  },
+  "slots": {
+    "upper": {
+      "sourceAnchorStrategy": "alpha-bbox-to-target-box",
+      "defaultSubtype": "standard",
+      "subtypes": {
+        "standard": {
+          "targetBox": [
+            56,
+            246,
+            262,
+            456
+          ],
+          "safeBox": [
+            36,
+            234,
+            284,
+            470
+          ],
+          "targetAnchors": {
+            "neck": [
+              157,
+              254
+            ],
+            "shoulderL": [
+              100,
+              305
+            ],
+            "shoulderR": [
+              218,
+              305
+            ],
+            "chestL": [
+              117,
+              345
+            ],
+            "chestR": [
+              198,
+              345
+            ],
+            "waistL": [
+              117,
+              360
+            ],
+            "waistR": [
+              198,
+              360
+            ],
+            "hemCenter": [
+              157,
+              448
+            ],
+            "sleeveEndL": [
+              65,
+              445
+            ],
+            "sleeveEndR": [
+              252,
+              445
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing boy shirt/sweatshirt/tee garments occupy approximately x=58..259, y=250..453. Align alpha-trimmed master bbox into this box; center on x=157."
+        },
+        "tshirt": {
+          "targetBox": [
+            72,
+            266,
+            243,
+            438
+          ],
+          "safeBox": [
+            58,
+            256,
+            258,
+            450
+          ],
+          "targetAnchors": {
+            "neck": [
+              157,
+              270
+            ],
+            "shoulderL": [
+              105,
+              305
+            ],
+            "shoulderR": [
+              213,
+              305
+            ],
+            "hemCenter": [
+              157,
+              434
+            ],
+            "sleeveEndL": [
+              85,
+              390
+            ],
+            "sleeveEndR": [
+              232,
+              390
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing boy tees occupy x=76..239. Short sleeves must stay inside the upper-arm safe zone."
+        },
+        "oversized": {
+          "targetBox": [
+            56,
+            246,
+            262,
+            440
+          ],
+          "safeBox": [
+            36,
+            234,
+            284,
+            458
+          ],
+          "targetAnchors": {
+            "neck": [
+              157,
+              256
+            ],
+            "shoulderL": [
+              96,
+              305
+            ],
+            "shoulderR": [
+              222,
+              305
+            ],
+            "chestL": [
+              116,
+              345
+            ],
+            "chestR": [
+              199,
+              345
+            ],
+            "hemCenter": [
+              157,
+              434
+            ],
+            "sleeveEndL": [
+              60,
+              440
+            ],
+            "sleeveEndR": [
+              257,
+              440
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Sweatshirt-like box. Existing boy sweatshirt occupies x=58..259, y=250..434."
+        },
+        "outerwear": {
+          "targetBox": [
+            54,
+            244,
+            265,
+            540
+          ],
+          "safeBox": [
+            32,
+            230,
+            288,
+            580
+          ],
+          "targetAnchors": {
+            "neck": [
+              157,
+              252
+            ],
+            "shoulderL": [
+              96,
+              302
+            ],
+            "shoulderR": [
+              222,
+              302
+            ],
+            "chestL": [
+              114,
+              345
+            ],
+            "chestR": [
+              201,
+              345
+            ],
+            "waistL": [
+              117,
+              370
+            ],
+            "waistR": [
+              198,
+              370
+            ],
+            "hemCenter": [
+              157,
+              535
+            ],
+            "sleeveEndL": [
+              58,
+              465
+            ],
+            "sleeveEndR": [
+              260,
+              465
+            ]
+          },
+          "fitMode": "affine-first",
+          "coversLower": false,
+          "notes": "Provisional coat/jacket fit. No existing boy coat asset is available. Coats/jackets must not clear the lower layer."
+        }
+      }
+    },
+    "lower": {
+      "sourceAnchorStrategy": "alpha-bbox-to-target-box",
+      "defaultSubtype": "pants",
+      "subtypes": {
+        "pants": {
+          "targetBox": [
+            92,
+            402,
+            226,
+            637
+          ],
+          "safeBox": [
+            80,
+            392,
+            240,
+            654
+          ],
+          "targetAnchors": {
+            "waistCenter": [
+              157,
+              410
+            ],
+            "waistL": [
+              108,
+              410
+            ],
+            "waistR": [
+              206,
+              410
+            ],
+            "hipL": [
+              105,
+              425
+            ],
+            "hipR": [
+              212,
+              425
+            ],
+            "hemCenter": [
+              157,
+              632
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing boy trousers occupy x=94..224, y=406..633. Align waist band to the waist landmark and keep both leg hems within the safe box. Lower-slot garment: it occupies the lower layer; coversLower must remain false."
+        },
+        "skirt": {
+          "targetBox": [
+            62,
+            390,
+            258,
+            636
+          ],
+          "safeBox": [
+            48,
+            380,
+            272,
+            650
+          ],
+          "targetAnchors": {
+            "waistCenter": [
+              157,
+              398
+            ],
+            "waistL": [
+              110,
+              398
+            ],
+            "waistR": [
+              204,
+              398
+            ],
+            "hipL": [
+              105,
+              425
+            ],
+            "hipR": [
+              212,
+              425
+            ],
+            "hemCenter": [
+              157,
+              630
+            ]
+          },
+          "fitMode": "affine-first",
+          "coversLower": false,
+          "notes": "No existing boy skirt asset; provisional target based on body landmarks. Verify with a generated skirt test case. Lower-slot garment: it occupies the lower layer; coversLower must remain false."
+        },
+        "shorts": {
+          "targetBox": [
+            93,
+            407,
+            225,
+            533
+          ],
+          "safeBox": [
+            80,
+            397,
+            238,
+            545
+          ],
+          "targetAnchors": {
+            "waistCenter": [
+              157,
+              412
+            ],
+            "waistL": [
+              108,
+              412
+            ],
+            "waistR": [
+              206,
+              412
+            ],
+            "hipL": [
+              105,
+              425
+            ],
+            "hipR": [
+              212,
+              425
+            ],
+            "hemCenter": [
+              157,
+              528
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing boy shorts occupy x=95..222, y=410..529. Lower-slot garment: it occupies the lower layer; coversLower must remain false."
+        },
+        "tracksuit": {
+          "targetBox": [
+            96,
+            408,
+            225,
+            646
+          ],
+          "safeBox": [
+            82,
+            398,
+            239,
+            660
+          ],
+          "targetAnchors": {
+            "waistCenter": [
+              157,
+              414
+            ],
+            "waistL": [
+              108,
+              414
+            ],
+            "waistR": [
+              206,
+              414
+            ],
+            "hipL": [
+              105,
+              425
+            ],
+            "hipR": [
+              212,
+              425
+            ],
+            "hemCenter": [
+              157,
+              640
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing boy tracksuit occupies x=98..223, y=412..642. Lower-slot garment: it occupies the lower layer; coversLower must remain false."
+        }
+      }
+    },
+    "fullbody": {
+      "sourceAnchorStrategy": "alpha-bbox-to-target-box",
+      "defaultSubtype": "dress",
+      "subtypes": {
+        "dress": {
+          "targetBox": [
+            56,
+            246,
+            262,
+            642
+          ],
+          "safeBox": [
+            38,
+            232,
+            280,
+            660
+          ],
+          "targetAnchors": {
+            "neck": [
+              157,
+              254
+            ],
+            "shoulderL": [
+              100,
+              305
+            ],
+            "shoulderR": [
+              218,
+              305
+            ],
+            "chestL": [
+              117,
+              345
+            ],
+            "chestR": [
+              198,
+              345
+            ],
+            "waistL": [
+              117,
+              360
+            ],
+            "waistR": [
+              198,
+              360
+            ],
+            "hipL": [
+              105,
+              425
+            ],
+            "hipR": [
+              212,
+              425
+            ],
+            "hemCenter": [
+              157,
+              635
+            ]
+          },
+          "fitMode": "affine-first-mesh-likely",
+          "coversLower": true,
+          "notes": "Full-body garments live in the existing Upper slot/layer but carry coversLower=true. The boy's higher crotch and longer legs make mesh warp more likely than on the girl."
+        },
+        "gown": {
+          "targetBox": [
+            56,
+            246,
+            262,
+            664
+          ],
+          "safeBox": [
+            36,
+            230,
+            282,
+            694
+          ],
+          "targetAnchors": {
+            "neck": [
+              157,
+              254
+            ],
+            "shoulderL": [
+              100,
+              305
+            ],
+            "shoulderR": [
+              218,
+              305
+            ],
+            "chestL": [
+              117,
+              345
+            ],
+            "chestR": [
+              198,
+              345
+            ],
+            "waistL": [
+              117,
+              360
+            ],
+            "waistR": [
+              198,
+              360
+            ],
+            "hipL": [
+              105,
+              425
+            ],
+            "hipR": [
+              212,
+              425
+            ],
+            "hemCenter": [
+              157,
+              658
+            ]
+          },
+          "fitMode": "affine-first-mesh-likely",
+          "coversLower": true,
+          "notes": "Long gowns are expected to need mesh warp because the boy and girl body proportions differ around waist, hip, and hem."
+        },
+        "tulum": {
+          "targetBox": [
+            56,
+            248,
+            262,
+            655
+          ],
+          "safeBox": [
+            38,
+            234,
+            280,
+            675
+          ],
+          "targetAnchors": {
+            "neck": [
+              157,
+              256
+            ],
+            "shoulderL": [
+              100,
+              305
+            ],
+            "shoulderR": [
+              218,
+              305
+            ],
+            "chestL": [
+              117,
+              345
+            ],
+            "chestR": [
+              198,
+              345
+            ],
+            "waistL": [
+              117,
+              365
+            ],
+            "waistR": [
+              198,
+              365
+            ],
+            "hipL": [
+              105,
+              425
+            ],
+            "hipR": [
+              212,
+              425
+            ],
+            "hemCenter": [
+              157,
+              650
+            ]
+          },
+          "fitMode": "affine-first-mesh-likely",
+          "coversLower": true,
+          "notes": "Jumpsuit/tulum is full-body and covers the lower slot. Verify leg openings during calibration."
+        }
+      }
+    }
+  }
+}

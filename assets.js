@@ -55,8 +55,6 @@ const DOLL_ASSETS = {
                 { id: "girl-bottom-skirt-1", path: "clothes/etek1.png" },
                 { id: "girl-bottom-skirt-2", path: "clothes/etek2.png" }
             ],
-            // No dress artwork is currently available; the UI dress slot is empty.
-            dresses: [],
             shoes: [
                 { id: "girl-shoe-1", path: "shoes/ayakkabı1.png" },
                 { id: "girl-shoe-2", path: "shoes/ayakkabı2.png" },
@@ -116,7 +114,6 @@ const DOLL_ASSETS = {
                 { id: "boy-bottom-shorts-1", path: "clothes/boyşort1.png" },
                 { id: "boy-bottom-shorts-2", path: "clothes/boyşort2.png" }
             ],
-            dresses: [],
             shoes: [
                 { id: "boy-shoe-1", path: "shoes/boyayakkabı1.png" },
                 { id: "boy-shoe-2", path: "shoes/boyayakkabı2.png" },

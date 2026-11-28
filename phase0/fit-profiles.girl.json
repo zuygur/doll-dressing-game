@@ -1,0 +1,698 @@
+{
+  "schemaVersion": 1,
+  "kind": "doll-fit-profile",
+  "gender": "girl",
+  "profileVersion": "0.1.0",
+  "status": "draft-needs-visual-signoff",
+  "canvas": {
+    "width": 320,
+    "height": 700
+  },
+  "referenceAsset": "doll.png",
+  "measurementDate": "2026-11-23",
+  "measuredFrom": [
+    "doll.png",
+    "clothes/gömlek1.png",
+    "clothes/gömlek2.png",
+    "clothes/sweat1.png",
+    "clothes/sweat2.png",
+    "clothes/tişört1.png",
+    "clothes/tişört2.png",
+    "clothes/pantolon.png",
+    "clothes/eşofman.png",
+    "clothes/etek1.png",
+    "clothes/etek2.png"
+  ],
+  "notes": "Derived from the 320x700 alpha silhouettes and the alpha bounding boxes of existing worn Upper/Lower assets. Coordinates are Phase 0 drafts and must be signed off in the calibration overlay before being treated as final.",
+  "landmarks": {
+    "headTop": [
+      159,
+      35
+    ],
+    "headCenter": [
+      159,
+      140
+    ],
+    "neck": [
+      159,
+      266
+    ],
+    "shoulderL": [
+      105,
+      305
+    ],
+    "shoulderR": [
+      214,
+      305
+    ],
+    "chestL": [
+      119,
+      345
+    ],
+    "chestR": [
+      198,
+      345
+    ],
+    "waistL": [
+      119,
+      360
+    ],
+    "waistR": [
+      198,
+      360
+    ],
+    "hipL": [
+      103,
+      438
+    ],
+    "hipR": [
+      214,
+      438
+    ],
+    "crotch": [
+      159,
+      460
+    ],
+    "kneeL": [
+      127,
+      550
+    ],
+    "kneeR": [
+      191,
+      550
+    ],
+    "ankleL": [
+      130,
+      650
+    ],
+    "ankleR": [
+      189,
+      650
+    ],
+    "footL": [
+      132,
+      680
+    ],
+    "footR": [
+      185,
+      680
+    ],
+    "elbowL": [
+      90,
+      390
+    ],
+    "elbowR": [
+      227,
+      390
+    ],
+    "wristL": [
+      75,
+      421
+    ],
+    "wristR": [
+      243,
+      421
+    ]
+  },
+  "slots": {
+    "upper": {
+      "sourceAnchorStrategy": "alpha-bbox-to-target-box",
+      "defaultSubtype": "standard",
+      "subtypes": {
+        "standard": {
+          "targetBox": [
+            55,
+            248,
+            264,
+            456
+          ],
+          "safeBox": [
+            36,
+            236,
+            284,
+            470
+          ],
+          "targetAnchors": {
+            "neck": [
+              159,
+              255
+            ],
+            "shoulderL": [
+              105,
+              305
+            ],
+            "shoulderR": [
+              214,
+              305
+            ],
+            "chestL": [
+              119,
+              345
+            ],
+            "chestR": [
+              198,
+              345
+            ],
+            "waistL": [
+              119,
+              360
+            ],
+            "waistR": [
+              198,
+              360
+            ],
+            "hemCenter": [
+              159,
+              448
+            ],
+            "sleeveEndL": [
+              70,
+              450
+            ],
+            "sleeveEndR": [
+              248,
+              450
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing girl shirt/sweatshirt/tee garments occupy approximately x=59..260, y=250..451. Align alpha-trimmed master bbox into this box; center on x=159."
+        },
+        "tshirt": {
+          "targetBox": [
+            72,
+            268,
+            247,
+            454
+          ],
+          "safeBox": [
+            58,
+            258,
+            260,
+            464
+          ],
+          "targetAnchors": {
+            "neck": [
+              159,
+              270
+            ],
+            "shoulderL": [
+              110,
+              305
+            ],
+            "shoulderR": [
+              209,
+              305
+            ],
+            "hemCenter": [
+              159,
+              450
+            ],
+            "sleeveEndL": [
+              84,
+              390
+            ],
+            "sleeveEndR": [
+              235,
+              390
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing girl tees are narrower than shirts: x=76..243. Keep short sleeves inside the upper-arm safe zone."
+        },
+        "oversized": {
+          "targetBox": [
+            56,
+            246,
+            263,
+            442
+          ],
+          "safeBox": [
+            36,
+            234,
+            284,
+            458
+          ],
+          "targetAnchors": {
+            "neck": [
+              159,
+              258
+            ],
+            "shoulderL": [
+              100,
+              305
+            ],
+            "shoulderR": [
+              219,
+              305
+            ],
+            "chestL": [
+              118,
+              345
+            ],
+            "chestR": [
+              199,
+              345
+            ],
+            "hemCenter": [
+              159,
+              436
+            ],
+            "sleeveEndL": [
+              65,
+              445
+            ],
+            "sleeveEndR": [
+              253,
+              445
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Sweatshirt-like box; shoulders may extend beyond the fitted shirt box. Existing sweats occupy x=60..259, y=250..437."
+        },
+        "outerwear": {
+          "targetBox": [
+            54,
+            244,
+            265,
+            540
+          ],
+          "safeBox": [
+            32,
+            230,
+            288,
+            580
+          ],
+          "targetAnchors": {
+            "neck": [
+              159,
+              252
+            ],
+            "shoulderL": [
+              100,
+              302
+            ],
+            "shoulderR": [
+              219,
+              302
+            ],
+            "chestL": [
+              116,
+              345
+            ],
+            "chestR": [
+              201,
+              345
+            ],
+            "waistL": [
+              119,
+              370
+            ],
+            "waistR": [
+              198,
+              370
+            ],
+            "hemCenter": [
+              159,
+              535
+            ],
+            "sleeveEndL": [
+              62,
+              470
+            ],
+            "sleeveEndR": [
+              256,
+              470
+            ]
+          },
+          "fitMode": "affine-first",
+          "coversLower": false,
+          "notes": "Provisional coat/jacket fit. No existing coat asset is available, so the lower hem is longer than the standard upper box. Coats/jackets must not clear the lower layer."
+        }
+      }
+    },
+    "lower": {
+      "sourceAnchorStrategy": "alpha-bbox-to-target-box",
+      "defaultSubtype": "pants",
+      "subtypes": {
+        "pants": {
+          "targetBox": [
+            94,
+            392,
+            224,
+            638
+          ],
+          "safeBox": [
+            82,
+            382,
+            238,
+            655
+          ],
+          "targetAnchors": {
+            "waistCenter": [
+              159,
+              400
+            ],
+            "waistL": [
+              110,
+              400
+            ],
+            "waistR": [
+              208,
+              400
+            ],
+            "hipL": [
+              103,
+              438
+            ],
+            "hipR": [
+              214,
+              438
+            ],
+            "hemCenter": [
+              159,
+              632
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing girl trousers occupy x=99..218, y=395..631. Align waist band to the waist landmark and keep both leg hems within the safe box. Lower-slot garment: it occupies the lower layer; coversLower must remain false."
+        },
+        "skirt": {
+          "targetBox": [
+            62,
+            383,
+            257,
+            631
+          ],
+          "safeBox": [
+            48,
+            373,
+            271,
+            646
+          ],
+          "targetAnchors": {
+            "waistCenter": [
+              159,
+              395
+            ],
+            "waistL": [
+              112,
+              395
+            ],
+            "waistR": [
+              206,
+              395
+            ],
+            "hipL": [
+              103,
+              438
+            ],
+            "hipR": [
+              214,
+              438
+            ],
+            "hemCenter": [
+              159,
+              625
+            ]
+          },
+          "fitMode": "affine-first",
+          "coversLower": false,
+          "notes": "Existing skirts span x=64..255, y=386..628. Flared/pleated skirts may need mesh warp to preserve hem shape across body proportions. Lower-slot garment: it occupies the lower layer; coversLower must remain false."
+        },
+        "shorts": {
+          "targetBox": [
+            95,
+            395,
+            225,
+            540
+          ],
+          "safeBox": [
+            82,
+            385,
+            238,
+            552
+          ],
+          "targetAnchors": {
+            "waistCenter": [
+              159,
+              402
+            ],
+            "waistL": [
+              110,
+              402
+            ],
+            "waistR": [
+              208,
+              402
+            ],
+            "hipL": [
+              103,
+              438
+            ],
+            "hipR": [
+              214,
+              438
+            ],
+            "hemCenter": [
+              159,
+              535
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Provisional short-length lower box based on body geometry; verify with a generated shorts test case. Lower-slot garment: it occupies the lower layer; coversLower must remain false."
+        },
+        "tracksuit": {
+          "targetBox": [
+            94,
+            395,
+            225,
+            638
+          ],
+          "safeBox": [
+            82,
+            385,
+            238,
+            655
+          ],
+          "targetAnchors": {
+            "waistCenter": [
+              159,
+              404
+            ],
+            "waistL": [
+              110,
+              404
+            ],
+            "waistR": [
+              208,
+              404
+            ],
+            "hipL": [
+              103,
+              438
+            ],
+            "hipR": [
+              214,
+              438
+            ],
+            "hemCenter": [
+              159,
+              632
+            ]
+          },
+          "fitMode": "affine",
+          "coversLower": false,
+          "notes": "Existing girl tracksuit occupies x=96..222, y=398..635. Lower-slot garment: it occupies the lower layer; coversLower must remain false."
+        }
+      }
+    },
+    "fullbody": {
+      "sourceAnchorStrategy": "alpha-bbox-to-target-box",
+      "defaultSubtype": "dress",
+      "subtypes": {
+        "dress": {
+          "targetBox": [
+            56,
+            246,
+            264,
+            642
+          ],
+          "safeBox": [
+            38,
+            232,
+            282,
+            660
+          ],
+          "targetAnchors": {
+            "neck": [
+              159,
+              255
+            ],
+            "shoulderL": [
+              105,
+              305
+            ],
+            "shoulderR": [
+              214,
+              305
+            ],
+            "chestL": [
+              119,
+              345
+            ],
+            "chestR": [
+              198,
+              345
+            ],
+            "waistL": [
+              119,
+              360
+            ],
+            "waistR": [
+              198,
+              360
+            ],
+            "hipL": [
+              103,
+              438
+            ],
+            "hipR": [
+              214,
+              438
+            ],
+            "hemCenter": [
+              159,
+              635
+            ]
+          },
+          "fitMode": "affine-first-mesh-likely",
+          "coversLower": true,
+          "notes": "Full-body garments live in the existing Upper slot/layer but carry coversLower=true. No dress asset exists yet; calibrate with generated dress tests."
+        },
+        "gown": {
+          "targetBox": [
+            56,
+            246,
+            264,
+            660
+          ],
+          "safeBox": [
+            36,
+            230,
+            284,
+            690
+          ],
+          "targetAnchors": {
+            "neck": [
+              159,
+              255
+            ],
+            "shoulderL": [
+              105,
+              305
+            ],
+            "shoulderR": [
+              214,
+              305
+            ],
+            "chestL": [
+              119,
+              345
+            ],
+            "chestR": [
+              198,
+              345
+            ],
+            "waistL": [
+              119,
+              360
+            ],
+            "waistR": [
+              198,
+              360
+            ],
+            "hipL": [
+              103,
+              438
+            ],
+            "hipR": [
+              214,
+              438
+            ],
+            "hemCenter": [
+              159,
+              654
+            ]
+          },
+          "fitMode": "affine-first-mesh-likely",
+          "coversLower": true,
+          "notes": "Long gowns likely need mesh warp because waist/hip/hem relationships differ between the two dolls."
+        },
+        "tulum": {
+          "targetBox": [
+            56,
+            248,
+            264,
+            655
+          ],
+          "safeBox": [
+            38,
+            234,
+            282,
+            675
+          ],
+          "targetAnchors": {
+            "neck": [
+              159,
+              258
+            ],
+            "shoulderL": [
+              105,
+              305
+            ],
+            "shoulderR": [
+              214,
+              305
+            ],
+            "chestL": [
+              119,
+              345
+            ],
+            "chestR": [
+              198,
+              345
+            ],
+            "waistL": [
+              119,
+              365
+            ],
+            "waistR": [
+              198,
+              365
+            ],
+            "hipL": [
+              103,
+              438
+            ],
+            "hipR": [
+              214,
+              438
+            ],
+            "hemCenter": [
+              159,
+              650
+            ]
+          },
+          "fitMode": "affine-first-mesh-likely",
+          "coversLower": true,
+          "notes": "Jumpsuit/tulum is full-body and covers the lower slot. Verify leg openings during calibration."
+        }
+      }
+    }
+  }
+}

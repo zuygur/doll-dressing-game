@@ -183,6 +183,14 @@
                 <div class="left-side">
 
                     <div class="bolum upper">
+                        <!--
+                            Üst giyim, ceket/mont ve tam vücut giyim (elbise,
+                            uzun elbise, abiye, tulum) burada yer alır.
+                            Tam vücut parçaları data-garment-kind="dress" ve
+                            data-covers-lower="true" ile işaretlenir; bu sayede
+                            alt giyim otomatik çıkarılır. Ceket/mont gibi
+                            parçalar bu işaretleri almaz ve alt giyimle uyumlu kalır.
+                        -->
                         <!-- KIZ ÜST GİYİM -->
                         <button class="opt-btn" data-item="clothes/gömlek1.png" style="background-color: rgb(215, 254, 252);">
                             <img src="clothes/gömlek1-removebg-preview.png">
@@ -255,10 +263,6 @@
                             <img src="clothes/boyşort2-removebg-preview.png">
                         </button>
                     </div>
-                </div>
-
-                <div class="right-side">
-                    <div class="bolum dress"></div>
                 </div>
             </div>
 

@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "kind": "phase2-provider-pilot-cases",
+  "scope": {
+    "categories": ["clothes"],
+    "slots": ["upper", "lower"],
+    "note": "MVP generation scope only. Shoes, accessories, fitting, mesh warp, and wardrobe registration are excluded."
+  },
+  "caseSelection": {
+    "conceptCases": "The five future-generated cases already defined in phase0/test-set.json: dress, gown, coat, oversized top, wide-leg pants.",
+    "sketchCases": "Two synthetic evaluation sketches derived from the dress and wide-leg-pants targets. They are harness fixtures, not real user Draw exports; replace them with real 800x800 Draw exports before the final real-provider pilot.",
+    "uniformity": "Every provider receives the same case definitions, the same server-built prompt, and the same evaluation rubric."
+  },
+  "cases": [
+    {
+      "id": "future-fullbody-dress",
+      "type": "concept",
+      "sourceKind": "ai-concept",
+      "phase0CaseId": "future-fullbody-dress",
+      "slot": "upper",
+      "profileSlot": "fullbody",
+      "subtype": "dress",
+      "garmentKind": "dress",
+      "coversLower": true,
+      "category": "clothes",
+      "concept": {
+        "title": "Rose Princess Dress",
+        "colors": ["dusty rose", "cream"],
+        "silhouette": "fitted bodice with a full A-line midi skirt",
+        "neckline": "sweetheart neckline",
+        "sleeves": "sleeveless",
+        "length": "midi length",
+        "decorations": "waist bow and subtle lace trim",
+        "style": "soft romantic chibi fashion illustration",
+        "description": "A single princess-style dress with a clean, readable silhouette and a small bow at the waist.",
+        "designNotes": "Keep the skirt volume controlled so later girl and boy fitting remains possible."
+      },
+      "evaluationFocus": [
+        "garment_only_compliance",
+        "transparency_and_edges",
+        "style_consistency",
+        "silhouette_and_shape",
+        "fitting_suitability"
+      ]
+    },
+    {
+      "id": "future-fullbody-gown",
+      "type": "concept",
+      "sourceKind": "ai-concept",
+      "phase0CaseId": "future-fullbody-gown",
+      "slot": "upper",
+      "profileSlot": "fullbody",
+      "subtype": "gown",
+      "garmentKind": "gown",
+      "coversLower": true,
+      "category": "clothes",
+      "concept": {
+        "title": "Starlight Evening Gown",
+        "colors": ["midnight blue", "silver"],
+        "silhouette": "fitted bodice with a floor-length flared skirt",
+        "neckline": "off-shoulder neckline",
+        "sleeves": "long sheer sleeves",
+        "length": "floor length",
+        "decorations": "small silver star accents",
+        "style": "elegant chibi evening wear",
+        "description": "A single full-length evening gown with a clear waistline and a simple, readable silhouette.",
+        "designNotes": "Avoid excessive sparkle noise and complicated transparency inside the garment."
+      },
+      "evaluationFocus": [
+        "garment_only_compliance",
+        "transparency_and_edges",
+        "style_consistency",
+        "silhouette_and_shape",
+        "fitting_suitability"
+      ]
+    },
+    {
+      "id": "future-outerwear-coat",
+      "type": "concept",
+      "sourceKind": "ai-concept",
+      "phase0CaseId": "future-outerwear-coat",
+      "slot": "upper",
+      "profileSlot": "upper",
+      "subtype": "outerwear",
+      "garmentKind": "coat",
+      "coversLower": false,
+      "category": "clothes",
+      "concept": {
+        "title": "Cocoa Long Coat",
+        "colors": ["cocoa brown"],
+        "silhouette": "straight long coat with a relaxed shoulder",
+        "neckline": "lapel collar",
+        "sleeves": "long sleeves",
+        "length": "knee length",
+        "decorations": "front buttons and a simple belt",
+        "style": "casual elegant chibi outerwear",
+        "description": "A single coat that can be worn over separate upper and lower garments.",
+        "designNotes": "The coat must not include trousers or a skirt; the lower layer stays independent."
+      },
+      "evaluationFocus": [
+        "garment_only_compliance",
+        "transparency_and_edges",
+        "style_consistency",
+        "silhouette_and_shape",
+        "fitting_suitability"
+      ]
+    },
+    {
+      "id": "future-upper-oversized",
+      "type": "concept",
+      "sourceKind": "ai-concept",
+      "phase0CaseId": "future-upper-oversized",
+      "slot": "upper",
+      "profileSlot": "upper",
+      "subtype": "oversized",
+      "garmentKind": "top",
+      "coversLower": false,
+      "category": "clothes",
+      "concept": {
+        "title": "Lavender Oversized Hoodie",
+        "colors": ["lavender"],
+        "silhouette": "oversized drop-shoulder hoodie",
+        "neckline": "hood with drawstrings",
+        "sleeves": "long sleeves",
+        "length": "hip length",
+        "decorations": "front pocket and simple drawstrings",
+        "style": "cozy chibi streetwear",
+        "description": "A single oversized hoodie with a broad but readable outline for later fitting.",
+        "designNotes": "Do not include trousers, shoes, a person, or a hanger."
+      },
+      "evaluationFocus": [
+        "garment_only_compliance",
+        "transparency_and_edges",
+        "style_consistency",
+        "silhouette_and_shape",
+        "fitting_suitability"
+      ]
+    },
+    {
+      "id": "future-lower-wide-leg-pants",
+      "type": "concept",
+      "sourceKind": "ai-concept",
+      "phase0CaseId": "future-lower-wide-leg-pants",
+      "slot": "lower",
+      "profileSlot": "lower",
+      "subtype": "pants",
+      "garmentKind": "pants",
+      "coversLower": false,
+      "category": "clothes",
+      "concept": {
+        "title": "Cream Wide-Leg Trousers",
+        "colors": ["cream"],
+        "silhouette": "high-waisted wide-leg trousers",
+        "length": "full length",
+        "decorations": "belt loops and a center crease",
+        "style": "smart casual chibi bottom",
+        "description": "A single pair of wide-leg trousers with both legs and both hems clearly visible.",
+        "designNotes": "Do not include a top, shoes, or a body; keep the two leg hems separable for later fitting."
+      },
+      "evaluationFocus": [
+        "garment_only_compliance",
+        "transparency_and_edges",
+        "style_consistency",
+        "silhouette_and_shape",
+        "fitting_suitability"
+      ]
+    },
+    {
+      "id": "pilot-sketch-dress",
+      "type": "sketch",
+      "sourceKind": "draw",
+      "phase0CaseId": "future-fullbody-dress",
+      "slot": "upper",
+      "profileSlot": "fullbody",
+      "subtype": "dress",
+      "garmentKind": "dress",
+      "coversLower": true,
+      "category": "clothes",
+      "sketchFixture": "phase2/fixtures/sketches/dress-lineart.png",
+      "fixtureOrigin": "synthetic-evaluation-fixture",
+      "dollPlacement": {
+        "visible": true,
+        "heightRatio": 0.82,
+        "aspect": "320:700",
+        "canvasWidth": 800,
+        "canvasHeight": 800
+      },
+      "placementPx": { "x": 250, "y": 72, "width": 300, "height": 656 },
+      "concept": {
+        "title": "Sketch Dress",
+        "colors": ["soft pink"],
+        "silhouette": "fitted bodice with a flared knee-length skirt",
+        "neckline": "round neckline",
+        "sleeves": "short puff sleeves",
+        "length": "knee length",
+        "decorations": "defined waist seam",
+        "style": "flat chibi line-art cleanup",
+        "description": "Clean up the attached dress sketch into a finished garment with the same silhouette.",
+        "designNotes": "Preserve the sketch neckline, waist seam, sleeve shape, and hem; do not add a person or background."
+      },
+      "evaluationFocus": [
+        "garment_only_compliance",
+        "transparency_and_edges",
+        "style_consistency",
+        "sketch_fidelity",
+        "silhouette_and_shape",
+        "fitting_suitability"
+      ]
+    },
+    {
+      "id": "pilot-sketch-wide-leg-pants",
+      "type": "sketch",
+      "sourceKind": "draw",
+      "phase0CaseId": "future-lower-wide-leg-pants",
+      "slot": "lower",
+      "profileSlot": "lower",
+      "subtype": "pants",
+      "garmentKind": "pants",
+      "coversLower": false,
+      "category": "clothes",
+      "sketchFixture": "phase2/fixtures/sketches/wide-leg-pants-lineart.png",
+      "fixtureOrigin": "synthetic-evaluation-fixture",
+      "dollPlacement": {
+        "visible": true,
+        "heightRatio": 0.82,
+        "aspect": "320:700",
+        "canvasWidth": 800,
+        "canvasHeight": 800
+      },
+      "placementPx": { "x": 250, "y": 72, "width": 300, "height": 656 },
+      "concept": {
+        "title": "Sketch Wide-Leg Pants",
+        "colors": ["charcoal"],
+        "silhouette": "high-waisted wide-leg trousers",
+        "length": "full length",
+        "decorations": "waistband and center crease",
+        "style": "flat chibi line-art cleanup",
+        "description": "Clean up the attached trouser sketch into a finished lower garment.",
+        "designNotes": "Preserve the waistband, leg width, and both hems; do not add a top, shoes, or a person."
+      },
+      "evaluationFocus": [
+        "garment_only_compliance",
+        "transparency_and_edges",
+        "style_consistency",
+        "sketch_fidelity",
+        "silhouette_and_shape",
+        "fitting_suitability"
+      ]
+    }
+  ]
+}

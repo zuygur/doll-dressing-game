@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "kind": "doll-fit-test-set",
+  "phase": "phase0",
+  "scope": [
+    "upper",
+    "lower",
+    "fullbody",
+    "outerwear"
+  ],
+  "notes": "Representative existing Upper/Lower assets plus future generated cases. Existing assets are 320x700 transparent worn layers. Full-body and coat cases are future-generated because the repository has no dress or coat artwork.",
+  "cases": [
+    {
+      "id": "upper-girl-shirt",
+      "status": "available",
+      "targets": [
+        "girl"
+      ],
+      "slot": "upper",
+      "subtype": "standard",
+      "garmentKind": "shirt",
+      "sourceAsset": "clothes/gömlek1.png",
+      "sourceBBox": [
+        59,
+        264,
+        260,
+        451
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "upper"
+    },
+    {
+      "id": "upper-girl-tee",
+      "status": "available",
+      "targets": [
+        "girl"
+      ],
+      "slot": "upper",
+      "subtype": "tshirt",
+      "garmentKind": "tshirt",
+      "sourceAsset": "clothes/tişört1.png",
+      "sourceBBox": [
+        76,
+        276,
+        243,
+        450
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "upper"
+    },
+    {
+      "id": "upper-girl-sweatshirt",
+      "status": "available",
+      "targets": [
+        "girl"
+      ],
+      "slot": "upper",
+      "subtype": "oversized",
+      "garmentKind": "sweatshirt",
+      "sourceAsset": "clothes/sweat1.png",
+      "sourceBBox": [
+        63,
+        254,
+        256,
+        433
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "upper"
+    },
+    {
+      "id": "upper-boy-shirt",
+      "status": "available",
+      "targets": [
+        "boy"
+      ],
+      "slot": "upper",
+      "subtype": "standard",
+      "garmentKind": "shirt",
+      "sourceAsset": "clothes/boygömlek1.png",
+      "sourceBBox": [
+        69,
+        253,
+        243,
+        450
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "upper"
+    },
+    {
+      "id": "upper-boy-tee",
+      "status": "available",
+      "targets": [
+        "boy"
+      ],
+      "slot": "upper",
+      "subtype": "tshirt",
+      "garmentKind": "tshirt",
+      "sourceAsset": "clothes/boytişört1.png",
+      "sourceBBox": [
+        76,
+        268,
+        238,
+        432
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "upper"
+    },
+    {
+      "id": "upper-boy-sweatshirt",
+      "status": "available",
+      "targets": [
+        "boy"
+      ],
+      "slot": "upper",
+      "subtype": "oversized",
+      "garmentKind": "sweatshirt",
+      "sourceAsset": "clothes/boysweat.png",
+      "sourceBBox": [
+        58,
+        250,
+        259,
+        434
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "upper"
+    },
+    {
+      "id": "lower-girl-pants",
+      "status": "available",
+      "targets": [
+        "girl"
+      ],
+      "slot": "lower",
+      "subtype": "pants",
+      "garmentKind": "pants",
+      "sourceAsset": "clothes/pantolon.png",
+      "sourceBBox": [
+        99,
+        395,
+        218,
+        631
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "lower"
+    },
+    {
+      "id": "lower-girl-skirt-a",
+      "status": "available",
+      "targets": [
+        "girl"
+      ],
+      "slot": "lower",
+      "subtype": "skirt",
+      "garmentKind": "skirt",
+      "sourceAsset": "clothes/etek1.png",
+      "sourceBBox": [
+        75,
+        389,
+        245,
+        522
+      ],
+      "expected": {
+        "fitMode": "affine-first",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "lower"
+    },
+    {
+      "id": "lower-girl-skirt-b",
+      "status": "available",
+      "targets": [
+        "girl"
+      ],
+      "slot": "lower",
+      "subtype": "skirt",
+      "garmentKind": "skirt",
+      "sourceAsset": "clothes/etek2.png",
+      "sourceBBox": [
+        64,
+        386,
+        255,
+        628
+      ],
+      "expected": {
+        "fitMode": "affine-first",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "lower"
+    },
+    {
+      "id": "lower-girl-tracksuit",
+      "status": "available",
+      "targets": [
+        "girl"
+      ],
+      "slot": "lower",
+      "subtype": "tracksuit",
+      "garmentKind": "tracksuit",
+      "sourceAsset": "clothes/eşofman.png",
+      "sourceBBox": [
+        96,
+        398,
+        222,
+        635
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "lower"
+    },
+    {
+      "id": "lower-boy-pants",
+      "status": "available",
+      "targets": [
+        "boy"
+      ],
+      "slot": "lower",
+      "subtype": "pants",
+      "garmentKind": "pants",
+      "sourceAsset": "clothes/boypantolon1.png",
+      "sourceBBox": [
+        94,
+        406,
+        224,
+        633
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "lower"
+    },
+    {
+      "id": "lower-boy-shorts",
+      "status": "available",
+      "targets": [
+        "boy"
+      ],
+      "slot": "lower",
+      "subtype": "shorts",
+      "garmentKind": "shorts",
+      "sourceAsset": "clothes/boyşort1.png",
+      "sourceBBox": [
+        96,
+        411,
+        222,
+        529
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "lower"
+    },
+    {
+      "id": "lower-boy-tracksuit",
+      "status": "available",
+      "targets": [
+        "boy"
+      ],
+      "slot": "lower",
+      "subtype": "tracksuit",
+      "garmentKind": "tracksuit",
+      "sourceAsset": "clothes/boyeşofman.png",
+      "sourceBBox": [
+        98,
+        412,
+        223,
+        642
+      ],
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "lower"
+    },
+    {
+      "id": "future-fullbody-dress",
+      "status": "future-generated",
+      "targets": [
+        "girl",
+        "boy"
+      ],
+      "slot": "upper",
+      "subtype": "dress",
+      "garmentKind": "dress",
+      "sourceAsset": null,
+      "sourceBBox": null,
+      "expected": {
+        "fitMode": "affine-first-mesh-likely",
+        "coversLower": true,
+        "lowerVisible": false
+      },
+      "profileSlot": "fullbody"
+    },
+    {
+      "id": "future-fullbody-gown",
+      "status": "future-generated",
+      "targets": [
+        "girl",
+        "boy"
+      ],
+      "slot": "upper",
+      "subtype": "gown",
+      "garmentKind": "gown",
+      "sourceAsset": null,
+      "sourceBBox": null,
+      "expected": {
+        "fitMode": "affine-first-mesh-likely",
+        "coversLower": true,
+        "lowerVisible": false
+      },
+      "profileSlot": "fullbody"
+    },
+    {
+      "id": "future-outerwear-coat",
+      "status": "future-generated",
+      "targets": [
+        "girl",
+        "boy"
+      ],
+      "slot": "upper",
+      "subtype": "outerwear",
+      "garmentKind": "coat",
+      "sourceAsset": null,
+      "sourceBBox": null,
+      "expected": {
+        "fitMode": "affine-first",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "upper"
+    },
+    {
+      "id": "future-upper-oversized",
+      "status": "future-generated",
+      "targets": [
+        "girl",
+        "boy"
+      ],
+      "slot": "upper",
+      "subtype": "oversized",
+      "garmentKind": "top",
+      "sourceAsset": null,
+      "sourceBBox": null,
+      "expected": {
+        "fitMode": "affine",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "upper"
+    },
+    {
+      "id": "future-lower-wide-leg-pants",
+      "status": "future-generated",
+      "targets": [
+        "girl",
+        "boy"
+      ],
+      "slot": "lower",
+      "subtype": "pants",
+      "garmentKind": "pants",
+      "sourceAsset": null,
+      "sourceBBox": null,
+      "expected": {
+        "fitMode": "affine-first",
+        "coversLower": false,
+        "lowerVisible": true
+      },
+      "profileSlot": "lower"
+    }
+  ]
+}
